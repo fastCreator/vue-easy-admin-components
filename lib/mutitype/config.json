@@ -1,0 +1,38 @@
+{
+    "name": "多选组件",
+    "doc": [
+        {
+            "title": "attributes",
+            "table": [
+                {
+                    "prop": "prop",
+                    "label": "参数"
+                },
+                {
+                    "prop": "desc",
+                    "label": "说明"
+                },
+                {
+                    "prop": "type",
+                    "label": "类型"
+                },
+                {
+                    "prop": "options",
+                    "label": "可选值"
+                },
+                {
+                    "prop": "default",
+                    "label": "默认值"
+                }
+            ],
+            "data": [
+                {
+                    "prop": "label",
+                    "desc": "Radio 的 value",
+                    "type": "string / number / boolean",
+                    "default": "默认值"
+                }
+            ]
+        }
+    ]
+}
