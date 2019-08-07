@@ -16,7 +16,13 @@ let routes = context.keys().map(key => ({
   component: context(key).default
 }))
 const router = new VueRouter({
-  routes
+  routes: [
+    ...routes,
+    {
+      path: '*',
+      redirect: routes[0].path
+    }
+  ]
 })
 new Vue({
   data () {
