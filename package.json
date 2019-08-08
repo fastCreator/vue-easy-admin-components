@@ -7,7 +7,9 @@
     "lint": "vue-cli-service lint",
     "deploy": "npm run build && gh-pages -d dist && npm publish"
   },
-  "dependencies": {},
+  "dependencies": {
+    "deepmerge": "^4.0.0"
+  },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.10.0",
     "@vue/cli-plugin-eslint": "^3.10.0",
