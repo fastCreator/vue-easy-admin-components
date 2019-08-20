@@ -1,6 +1,5 @@
-
 {
-    "name": "表格",
+    "name": "选择器",
     "doc": [
         {
             "title": "attributes",
@@ -8,25 +7,241 @@
                 {
                     "prop": "prop",
                     "label": "参数"
+                },
+                {
+                    "prop": "des",
+                    "label": "说明"
+                },
+                {
+                    "prop": "type",
+                    "label": "类型"
+                },
+                {
+                    "prop": "options",
+                    "label": "可选值"
+                },
+                {
+                    "prop": "default",
+                    "label": "默认值"
                 }
             ],
             "data": [
                 {
-                    "prop": "label"
-                }
-            ]
-        },
-        {
-            "title": "events",
-            "table": [
+                    "prop": "filters",
+                    "des": "过滤项",
+                    "type": "Array",
+                    "options": "-",
+                    "default": "[]"
+                },
                 {
-                    "prop": "eventName",
-                    "label": "点击事件"
-                }
-            ],
-            "data": [
+                    "prop": "label",
+                    "des": "过滤项名称",
+                    "type": "String",
+                    "options": "-",
+                    "default": "-"
+                },
                 {
-                    "click": "eventName"
+                    "prop": "filters.prop",
+                    "des": "过滤项prop",
+                    "type": "String",
+                    "options": "-",
+                    "default": "-"
+                },
+                {
+                    "prop": "filters.tag",
+                    "des": "组件tag",
+                    "type": "String",
+                    "options": "-",
+                    "default": "-"
+                },
+                {
+                    "prop": "filters.bind",
+                    "des": "组件绑定属性",
+                    "type": "Object",
+                    "options": "-",
+                    "default": "{}"
+                },
+                {
+                    "prop": "filters.on",
+                    "des": "组件绑定事件",
+                    "type": "Object",
+                    "options": "-",
+                    "default": "{}"
+                },
+                {
+                    "prop": "table",
+                    "des": "表格配置",
+                    "type": "Object",
+                    "options": "-",
+                    "default": "-"
+                },
+                {
+                    "prop": "table.data",
+                    "des": "search接口获取table数据的key",
+                    "type": "String",
+                    "options": "-",
+                    "default": "-"
+                },
+                {
+                    "prop": "table.bind",
+                    "des": "el-table绑定的属性值",
+                    "type": "String",
+                    "options": "-",
+                    "default": "-"
+                },
+                {
+                    "prop": "table.on",
+                    "des": "el-table绑定的事件",
+                    "type": "String",
+                    "options": "-",
+                    "default": "-"
+                },
+                {
+                    "prop": "table.columns",
+                    "des": "el-table对应列",
+                    "type": "String",
+                    "options": "-",
+                    "default": "-"
+                },
+                {
+                    "prop": "table.columns.type",
+                    "des": "Table-column type",
+                    "type": "String",
+                    "options": "-",
+                    "default": "-"
+                },
+                {
+                    "prop": "table.columns.label",
+                    "des": "Table-column label",
+                    "type": "String",
+                    "options": "-",
+                    "default": "-"
+                },
+                {
+                    "prop": "table.columns.prop",
+                    "des": "Table-column prop",
+                    "type": "String",
+                    "options": "-",
+                    "default": "-"
+                },
+                {
+                    "prop": "table.columns.prop",
+                    "des": "Table-column 其他绑定值",
+                    "type": "Object",
+                    "options": "-",
+                    "default": "-"
+                },
+                {
+                    "prop": "table.columns.on",
+                    "des": "Table-column 其他绑定值事件",
+                    "type": "Object",
+                    "options": "-",
+                    "default": "-"
+                },
+                {
+                    "prop": "table.columns.render",
+                    "des": "Table-column 渲染函数",
+                    "type": "Function",
+                    "options": "-",
+                    "default": "-"
+                },
+                {
+                    "prop": "table.columns.child",
+                    "des": "Table-column 分子级",
+                    "type": "table.columns",
+                    "options": "-",
+                    "default": "-"
+                },
+                {
+                    "prop": "operations",
+                    "des": "操作按钮组",
+                    "type": "Array",
+                    "options": "-",
+                    "default": "-"
+                },
+                {
+                    "prop": "operations.label",
+                    "des": "操作按钮名称",
+                    "type": "String",
+                    "options": "-",
+                    "default": "-"
+                },
+                {
+                    "prop": "operations.call",
+                    "des": "操作按钮回调函数",
+                    "type": "String",
+                    "options": "-",
+                    "default": "-"
+                },
+                {
+                    "prop": "operations.bind",
+                    "des": "el-button绑定属性",
+                    "type": "Object",
+                    "options": "-",
+                    "default": "-"
+                },
+                {
+                    "prop": "operations.on",
+                    "des": "el-button绑定事件",
+                    "type": "Object",
+                    "options": "-",
+                    "default": "-"
+                },
+                {
+                    "prop": "pagination",
+                    "des": "分页配置",
+                    "type": "Object",
+                    "options": "-",
+                    "default": "-"
+                },
+                {
+                    "prop": "pagination.total",
+                    "des": "search函数返回所有条目key",
+                    "type": "Object",
+                    "options": "-",
+                    "default": "-"
+                },
+                {
+                    "prop": "pagination.currentPage",
+                    "des": "当前页码",
+                    "type": "Number",
+                    "options": "-",
+                    "default": "1"
+                },
+                {
+                    "prop": "pagination.currentPage",
+                    "des": "当前页码",
+                    "type": "Number",
+                    "options": "-",
+                    "default": 1
+                },
+                {
+                    "prop": "pagination.pageSize",
+                    "des": "每页条目数",
+                    "type": "Number",
+                    "options": "-",
+                    "default": 10
+                },
+                {
+                    "prop": "pagination.bind",
+                    "des": "el-pagination 绑定属性值",
+                    "type": "Object",
+                    "options": "-",
+                    "default": "-"
+                },
+                {
+                    "prop": "pagination.bind",
+                    "des": "el-pagination 绑定事件",
+                    "type": "Object",
+                    "options": "-",
+                    "default": "-"
+                },
+                {
+                    "prop": "search",
+                    "des": "获取数据接口",
+                    "type": "Function(filters, pagination)",
+                    "options": "-",
+                    "default": "-"
                 }
             ]
         }

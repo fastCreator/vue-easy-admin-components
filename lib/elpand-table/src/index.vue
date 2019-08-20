@@ -11,6 +11,7 @@
           <component
             v-bind:is="it.tag"
             v-bind="it.bind"
+            v-on="it.on"
             :value="filtersValue[it.prop]"
             @input="setFiltersValue($event,it.prop)"
           ></component>
@@ -32,6 +33,7 @@
         v-for="(it,i) in operations"
         :key="i"
         v-bind="it.bind"
+        v-on="it.on"
         @click="operationCall(it)"
       >
         {{it.label}}
