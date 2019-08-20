@@ -32,7 +32,7 @@ export default {
 `
 
 const config = `{
-  "name": "选择器",
+  "name": "${des}",
   "doc": [
       {
           "title": "attributes",
