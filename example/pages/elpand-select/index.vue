@@ -1,7 +1,14 @@
 <template>
   <div class="elpand-select-demo">
+    <h1>基础用法</h1>
     <elpand-select
       :options="options"
+      :optionsProps="optionsProps"
+      v-model="value"
+    ></elpand-select>
+    <h1>ajax请求options</h1>
+    <elpand-select
+      :options="getOptions"
       :optionsProps="optionsProps"
       v-model="value"
     ></elpand-select>
@@ -31,6 +38,9 @@ export default {
   created() {
   },
   methods: {
+    getOptions() {
+      return Promise.resolve({ data: this.options }).then(d => d.data)
+    }
   }
 }
 </script>

@@ -16,11 +16,14 @@ export default {
           },
           {
             name: '输入框',
-            prop: 'input',
+            prop: 'select',
             tag: 'elpand-select',
+            default: 'zhangsan',
           }
         ],
+        search() {
 
+        }
       }
     }
   },

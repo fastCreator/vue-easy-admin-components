@@ -1,14 +1,14 @@
-<template functional>
+<template>
   <el-select
     class="elpand-select"
-    v-bind="data.attrs"
-    v-on="data.on"
+    v-bind="$attrs"
+    v-on="_events"
   >
     <el-option
-      v-for="item in props.options"
-      :key="item[props.optionsProps.value]"
-      :label="item[props.optionsProps.label]"
-      :value="item[props.optionsProps.value]"
+      v-for="item in items"
+      :key="item[optionsProps.value]"
+      :label="item[optionsProps.label]"
+      :value="item[optionsProps.value]"
     >
     </el-option>
   </el-select>
@@ -17,7 +17,7 @@
 export default {
   name: 'elpand-select',
   props: {
-    type: Array,
+    type: [Array, Function],
     options: {
       default() { return [] }
     },
@@ -29,6 +29,18 @@ export default {
           value: 'value'
         }
       }
+    }
+  },
+  data() {
+    return {
+      items: []
+    }
+  },
+  async created() {
+    if (typeof (this.options) === 'function') {
+      this.items = await this.options()
+    } else {
+      this.items = this.options
     }
   }
 }
