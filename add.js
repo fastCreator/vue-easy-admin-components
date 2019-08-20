@@ -113,8 +113,8 @@ function init () {
     console.log('请添加描素')
     return false
   }
-  //   addExample()
-  //   addLib()
+  addExample()
+  addLib()
   addindexJS()
 }
 function addExample () {
