@@ -7,9 +7,9 @@
     "lint": "vue-cli-service lint",
     "deploy": "npm run build && gh-pages -d dist && npm publish"
   },
-  "dependencies": {
-    "deepmerge": "^4.0.0",
-    "node-native-loader": "^1.1.1"
+  "dependencies": {},
+  "peerDependencies": {
+    "element-ui": "^2.11.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.10.0",
@@ -17,7 +17,6 @@
     "@vue/cli-service": "^3.10.0",
     "babel-eslint": "^10.0.1",
     "core-js": "^2.6.5",
-    "element-ui": "^2.11.1",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
     "gh-pages": "2.0.1",
@@ -37,7 +36,9 @@
       "plugin:vue/essential",
       "eslint:recommended"
     ],
-    "rules": {},
+    "rules": {
+      "no-console": "off"
+    },
     "parserOptions": {
       "parser": "babel-eslint"
     }
@@ -51,7 +52,7 @@
     "> 1%",
     "last 2 versions"
   ],
-  "description": "## Project setup ``` yarn install ```",
+  "description": "element-ui扩展组件库",
   "main": "lib/index.js",
   "directories": {
     "example": "example",
