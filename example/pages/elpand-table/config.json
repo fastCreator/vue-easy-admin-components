@@ -1,0 +1,34 @@
+
+{
+    "name": "表格",
+    "doc": [
+        {
+            "title": "attributes",
+            "table": [
+                {
+                    "prop": "prop",
+                    "label": "参数"
+                }
+            ],
+            "data": [
+                {
+                    "prop": "label"
+                }
+            ]
+        },
+        {
+            "title": "events",
+            "table": [
+                {
+                    "prop": "eventName",
+                    "label": "点击事件"
+                }
+            ],
+            "data": [
+                {
+                    "click": "eventName"
+                }
+            ]
+        }
+    ]
+}
