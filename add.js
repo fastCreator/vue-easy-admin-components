@@ -31,39 +31,68 @@ export default {
 </style>
 `
 
-const config = `
-{
-    "name": "${des}",
-    "doc": [
-        {
-            "title": "attributes",
-            "table": [
-                {
-                    "prop": "prop",
-                    "label": "参数"
-                }
-            ],
-            "data": [
-                {
-                    "prop": "label"
-                }
-            ]
-        },
-        {
-            "title": "events",
-            "table": [
-                {
-                    "prop": "eventName",
-                    "label": "点击事件"
-                }
-            ],
-            "data": [
-                {
-                    "click": "eventName"
-                }
-            ]
-        }
-    ]
+const config = `{
+  "name": "选择器",
+  "doc": [
+      {
+          "title": "attributes",
+          "table": [
+              {
+                  "prop": "prop",
+                  "label": "参数"
+              },
+              {
+                  "prop": "des",
+                  "label": "说明"
+              },
+              {
+                  "prop": "type",
+                  "label": "类型"
+              },
+              {
+                  "prop": "options",
+                  "label": "可选值"
+              },
+              {
+                  "prop": "default",
+                  "label": "默认值"
+              }
+          ],
+          "data": [
+              {
+                  "prop": "-",
+                  "des": "-",
+                  "type": "-",
+                  "options": "-",
+                  "default": "-"
+              }
+          ]
+      },
+      {
+          "title": "events",
+          "table": [
+              {
+                  "prop": "event",
+                  "label": "事件名称"
+              },
+              {
+                  "prop": "des",
+                  "label": "说明"
+              },
+              {
+                  "prop": "call",
+                  "label": "回调参数"
+              }
+          ],
+          "data": [
+              {
+                  "event": "-",
+                  "des": "-",
+                  "call": "-"
+              }
+          ]
+      }
+  ]
 }
 `
 const js = `
