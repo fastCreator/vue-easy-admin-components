@@ -1,34 +1,17 @@
 # vue-element-ui-expand
 
-## Project setup
+## 发布pages以及npm
 ```
-yarn install
-```
-
-### Compiles and hot-reloads for development
-```
-yarn run serve
+npm run deploy
 ```
 
-### Compiles and minifies for production
+## 开发
+#### 运行
 ```
-yarn run build
+npm install
+npm run serve
 ```
-
-### Run your tests
-```
-yarn run test
-```
-
-### Lints and fixes files
-```
-yarn run lint
-```
-### 开发
 #### 新增组件
 ```
 node add 组件名
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
