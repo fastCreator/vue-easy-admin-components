@@ -1,5 +1,11 @@
 # vue-element-ui-expand
+## 使用
+```
+npm install vue-element-ui-expand
 
+import ElementUIExpand from '../lib'
+Vue.use(ElementUIExpand)
+```
 ## demo
 https://fastcreator.github.io/vue-element-ui-expand/
 
