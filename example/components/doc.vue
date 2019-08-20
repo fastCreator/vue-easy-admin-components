@@ -25,7 +25,7 @@
 
 <style lang="less">
 .elpand-doc {
-  margin-top: 100px;
+  border-top: 1px solid #ccc;
 }
 </style>
   

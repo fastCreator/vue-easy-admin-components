@@ -6,6 +6,7 @@
       </el-aside>
       <el-main>
         <router-view></router-view>
+        <Code></Code>
         <Doc></Doc>
       </el-main>
     </el-container>
@@ -15,12 +16,14 @@
 <script>
 import NavMenu from './components/NavMenu.vue'
 import Doc from './components/doc.vue'
+import Code from './components/code.vue'
 
 export default {
   name: 'app',
   components: {
     NavMenu,
     Doc,
+    Code
   }
 }
 </script>
