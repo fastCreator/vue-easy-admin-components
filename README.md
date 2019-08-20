@@ -24,6 +24,11 @@ yarn run test
 ```
 yarn run lint
 ```
+### 开发
+#### 新增组件
+```
+node add 组件名
+```
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
