@@ -1,8 +1,12 @@
 # vue-element-ui-expand
 
+## demo
+https://fastcreator.github.io/vue-element-ui-expand/
+
 ## 发布pages以及npm
 ```
-npm run deploy
+1. 修改packjson版本号
+2. npm run deploy
 ```
 
 ## 开发
