@@ -3,7 +3,7 @@
 ```
 npm install vue-element-ui-expand
 
-import ElementUIExpand from '../lib'
+import ElementUIExpand from 'vue-element-ui-expand'
 Vue.use(ElementUIExpand)
 ```
 ## demo
