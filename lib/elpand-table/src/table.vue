@@ -22,16 +22,21 @@ export default {
   },
   render() {
     const { data, bind } = this
-    const { getColumns } = this
+    const { getColumns, handlerSelect } = this
     return <el-table
       class='my-table'
       data={data}
       {...bind}
+      on-select={handlerSelect}
+      on-select-all={handlerSelect}
     >
       {getColumns(this.columns)}
     </el-table>
   },
   methods: {
+    handlerSelect(selection) {
+      this.$emit('select', selection)
+    },
     getColumns(arr) {
       const h = this.$createElement
       return arr.map(it => {

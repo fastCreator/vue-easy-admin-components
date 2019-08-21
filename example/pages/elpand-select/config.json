@@ -29,7 +29,7 @@
                 {
                     "prop": "options",
                     "des": "选项值",
-                    "type": "Array",
+                    "type": "Array,Function",
                     "options": "-",
                     "default": "[]"
                 },

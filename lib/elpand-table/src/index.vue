@@ -41,6 +41,7 @@
     </div>
     <my-table
       v-bind="table"
+      @select="handlerSelection"
       :data="tableData"
     ></my-table>
     <div
@@ -96,16 +97,20 @@ export default {
       tableData: [],
       total: 0,
       currentPage: this.pagination ? this.pagination.currentPage : 1,
-      pageSize: this.pagination ? this.pagination.pageSize : 10
+      pageSize: this.pagination ? this.pagination.pageSize : 10,
+      selection: []
     }
   },
   created() {
     this.handlerSearch()
   },
   methods: {
+    handlerSelection(selection) {
+      this.selection = selection
+    },
     operationCall(opt) {
       if (opt.call) {
-        opt.call()
+        opt.call(this.selection)
       }
     },
     setFiltersValue(v, prop) {
