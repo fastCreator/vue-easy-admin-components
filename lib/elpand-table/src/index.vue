@@ -91,8 +91,10 @@
     <my-table
       v-bind="table"
       @select="handlerSelection"
+      @sort="handlerSort"
       :data="tableData"
       :hideTableLabel="hideTableLabel"
+      :tableSort="tableSort"
     ></my-table>
     <div
       class="pagination"
@@ -104,7 +106,7 @@
         :pageSize.sync="pageSize"
         :currentPage.sync="currentPage"
         :total="total"
-        @size-change="changePage"
+        @size-change="handerSizeChange"
         @current-change="changePage"
         @prev-click="changePage"
         @next-click="changePage"
@@ -121,6 +123,9 @@ export default {
     MyTable
   },
   props: {
+    tableSort: {
+      type: Function
+    },
     tableExport: {
       type: Object
     },
@@ -182,6 +187,9 @@ export default {
     }
   },
   methods: {
+    handlerSort(evt) {
+      this.tableSort(evt)
+    },
     exportExcel(bookType) {
       import('./Export2Excel').then(excel => {
         excel.export_json_to_excel({
@@ -221,6 +229,10 @@ export default {
         header.push(ct.label)
         props.push(ct.prop)
       }
+    },
+    handerSizeChange(v) {
+      this.pageSize = v
+      this.changePage()
     },
     handlerSelection(selection) {
       this.selection = selection
@@ -289,7 +301,6 @@ export default {
     margin-top: 12px;
   }
   .my-table {
-    margin-top: 12px;
   }
   .pagination {
     margin-top: 12px;

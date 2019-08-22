@@ -1,6 +1,9 @@
 <script>
 export default {
   props: {
+    tableSort: {
+      type: Function
+    },
     hideTableLabel: {
       type: Array,
       default() { return [] }
@@ -25,7 +28,7 @@ export default {
     }
   },
   render() {
-    const { data, bind } = this
+    const { data, bind, tableSort } = this
     const { getColumns, handlerSelect } = this
     return <el-table
       class='my-table'
@@ -35,9 +38,33 @@ export default {
       on-select-all={handlerSelect}
     >
       {getColumns(this.columns)}
+      {tableSort && <el-table-column
+        width="60"
+        label="">
+        <el-button plain circle icon="el-icon-sort" class="sortableHanlder"></el-button>
+      </el-table-column>}
     </el-table>
   },
+  mounted() {
+    this.setTableSort()
+  },
   methods: {
+    setTableSort() {
+      const { tableSort } = this
+      if (tableSort) {
+        import('sortablejs').then(({ Sortable }) => {
+          console.log(Sortable)
+          const el = document.querySelectorAll('.el-table__body-wrapper > table > tbody')[0];
+          Sortable.create(el, {
+            animation: 150,
+            dragClass: "expand-sortable-drag",
+            onEnd: function (evt) {
+              this.$emit('sort', evt)
+            }
+          })
+        })
+      }
+    },
     handlerSelect(selection) {
       this.$emit('select', selection)
     },
@@ -61,3 +88,13 @@ export default {
   }
 }
 </script>
+<style lang="less">
+.elpand-table {
+  .my-table {
+    margin-top: 12px;
+    .expand-sortable-drag {
+      opacity: 0;
+    }
+  }
+}
+</style>

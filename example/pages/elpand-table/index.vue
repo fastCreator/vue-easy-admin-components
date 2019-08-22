@@ -4,10 +4,15 @@
   </div>
 </template>
 <script>
+import { Promise } from 'q';
 export default {
   data() {
     return {
       bind: {
+        tableSort(evt) {
+          console.log(evt)
+          return Promise.reslove()
+        },
         tableExport: {
           filter(row, prop) {
             if (prop === 'sex') {
