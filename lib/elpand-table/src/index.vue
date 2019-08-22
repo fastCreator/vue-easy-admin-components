@@ -6,7 +6,7 @@
         v-for="it in filters"
         :key="it.prop"
       >
-        <div class="filters-label">{{it.label}}</div>
+        <div class="filters-label">{{it.label}}：</div>
         <div class="filters-value">
           <component
             v-bind:is="it.tag"
@@ -26,12 +26,6 @@
           type="warning"
           @click="clearFilters"
         >重置</el-button>
-        <!-- <el-button
-          v-if="tableExport"
-          type="primary"
-          icon="el-icon-download"
-          @click="exportExcel"
-        >导出</el-button> -->
         <el-dropdown
           trigger="click"
           :hide-on-click="false"
@@ -57,33 +51,34 @@
             </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
-        <el-dropdown trigger="click">
-          <el-button
-            v-if="tableFilter"
-            type="plain"
-            icon="el-icon-download"
-          >
-            导出
-          </el-button>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item
-              v-for="it in tableExport.bookTypes"
-              :key="it"
-              @click.native="exportExcel(it)"
-            >
-              {{it}}
-            </el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
       </div>
     </div>
     <div class="operations">
+      <el-dropdown trigger="click">
+        <el-button
+          class="exportExcel"
+          v-if="tableFilter"
+          type="primary"
+          icon="el-icon-download"
+        >
+          导出
+        </el-button>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item
+            v-for="it in tableExport.bookTypes"
+            :key="it"
+            @click.native="exportExcel(it)"
+          >
+            {{it}}
+          </el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
       <el-button
         v-for="(it,i) in operations"
         :key="i"
         v-bind="it.bind"
         v-on="it.on"
-        @click="operationCall(it)"
+        @click="operationHandler(it)"
       >
         {{it.label}}
       </el-button>
@@ -237,9 +232,23 @@ export default {
     handlerSelection(selection) {
       this.selection = selection
     },
+    operationHandler(opt) {
+      if (opt.confirm) {
+        this.$confirm(opt.confirm, '', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.operationCall(opt)
+        })
+      } else {
+        this.operationCall(opt)
+      }
+
+    },
     operationCall(opt) {
       if (opt.call) {
-        opt.call(this.selection)
+        opt.call(this.selection, this.handlerSearch)
       }
     },
     setFiltersValue(v, prop) {
@@ -288,7 +297,7 @@ export default {
     .filters-item {
       display: flex;
       align-items: center;
-      margin-left: 12px;
+      margin-left: 20px;
     }
     .btns {
       margin-left: 12px;
@@ -299,6 +308,9 @@ export default {
   }
   .operations {
     margin-top: 12px;
+    .el-dropdown {
+      margin-right: 12px;
+    }
   }
   .my-table {
   }

@@ -9,8 +9,9 @@ export default {
   data() {
     return {
       bind: {
-        tableSort(evt,cb) {
+        tableSort(evt, cb) {
           console.log(evt)
+          //接口调用成功后执行cb()
           cb()
         },
         tableExport: {
@@ -66,18 +67,19 @@ export default {
         },
         operations: [
           {
-            label: '操作1',
-            call(selection) {
+            label: '删除',
+            confirm: '你确定删除吗？',
+            call(selection, search) {
               console.log(selection)
-              alert(1)
+              search()
             },
             bind: {
-              type: "info",
-              icon: "el-icon-share"
+              type: "danger",
+              icon: "el-icon-delete"
             }
           },
           {
-            label: '操作2',
+            label: '其他操作',
             call() {
               alert(2)
             }
