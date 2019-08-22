@@ -65,14 +65,14 @@
                     "prop": "tableExport.bookTypes",
                     "des": "可选下载文件类型",
                     "type": "Array",
-                    "options": "[]",
+                    "options": "xlsx,xlsm,xlsb,biff8,biff5,biff2,xlml,ods,fods,csv,txt,sylk,html,dif,dbf,rtf,prn,eth",
                     "default": "-"
                 },
                 {
                     "prop": "filters",
                     "des": "过滤项",
                     "type": "Array",
-                    "options": "xlsx,xlsm,xlsb,biff8,biff5,biff2,xlml,ods,fods,csv,txt,sylk,html,dif,dbf,rtf,prn,eth",
+                    "options": "-",
                     "default": "-"
                 },
                 {
