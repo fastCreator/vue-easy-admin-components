@@ -26,6 +26,37 @@
           type="warning"
           @click="clearFilters"
         >重置</el-button>
+        <el-button
+          v-if="tableExport"
+          type="primary"
+          icon="el-icon-download"
+          @click="exportExcel"
+        >导出</el-button>
+        <el-dropdown
+          trigger="click"
+          :hide-on-click="false"
+        >
+          <el-button
+            v-if="tableFilter"
+            type="plain"
+            icon="el-icon-menu"
+          ></el-button>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item>
+              <el-checkbox-group
+                v-model="tableFilterSelected"
+                :min="1"
+              >
+                <div
+                  v-for="it in tableFilterList"
+                  :key="it"
+                >
+                  <el-checkbox :label="it"></el-checkbox>
+                </div>
+              </el-checkbox-group>
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
       </div>
     </div>
     <div class="operations">
@@ -43,6 +74,7 @@
       v-bind="table"
       @select="handlerSelection"
       :data="tableData"
+      :hideTableLabel="hideTableLabel"
     ></my-table>
     <div
       class="pagination"
@@ -71,6 +103,14 @@ export default {
     MyTable
   },
   props: {
+    tableExport: {
+      type: [Boolean, Function],
+      default: false,
+    },
+    tableFilter: {
+      type: Boolean,
+      default: false,
+    },
     filters: {
       type: Array,
       default() { return [] }
@@ -98,13 +138,70 @@ export default {
       total: 0,
       currentPage: this.pagination ? this.pagination.currentPage : 1,
       pageSize: this.pagination ? this.pagination.pageSize : 10,
-      selection: []
+      selection: [],
+      tableFilterSelected: []
     }
   },
   created() {
     this.handlerSearch()
   },
+  computed: {
+    tableFilterList() {
+      return this.table.columns.filter(it => it.label).map(it => it.label)
+    },
+    hideTableLabel() {
+      return this.tableFilterList.filter(it => !~this.tableFilterSelected.indexOf(it))
+    }
+  },
+  watch: {
+    tableFilterList: {
+      handler(v) {
+        this.tableFilterSelected = v
+      },
+      immediate: true
+    }
+  },
   methods: {
+    exportExcel() {
+      import('./Export2Excel').then(excel => {
+        excel.export_json_to_excel({
+          ...this.getExportExcelData(),
+          filename: 'excel-list', //非必填
+          autoWidth: true, //非必填
+          bookType: 'xlsx' //非必填
+        })
+      })
+    },
+    getExportExcelData() {
+      let columns = this.table.columns
+      let header = []
+      let props = []
+      let tableExportFuc = typeof (this.tableExport) === 'function' ? this.tableExport : false
+      this.tableFilterSelected.forEach(st => {
+        let ct = columns.find(col => col.label === st)
+        this.getChildProp(ct, header, props)
+      })
+      return {
+        data: this.tableData.map(row => props.map(prop => {
+          if (tableExportFuc) {
+            return tableExportFuc(row, prop)
+          } else {
+            return row[prop]
+          }
+        })),
+        header
+      }
+    },
+    getChildProp(ct, header, props) {
+      if (ct.child) {
+        ct.child.forEach(cct => {
+          this.getChildProp(cct, header, props)
+        })
+      } else {
+        header.push(ct.label)
+        props.push(ct.prop)
+      }
+    },
     handlerSelection(selection) {
       this.selection = selection
     },
@@ -163,6 +260,9 @@ export default {
     }
     .btns {
       margin-left: 12px;
+      .el-dropdown {
+        margin-left: 12px;
+      }
     }
   }
   .operations {

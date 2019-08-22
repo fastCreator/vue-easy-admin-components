@@ -8,6 +8,13 @@ export default {
   data() {
     return {
       bind: {
+        tableExport(row, prop) {
+          if (prop === 'sex') {
+            return row.sex ? '男' : '女'
+          }
+          return row[prop]
+        },
+        tableFilter: true,
         filters: [
           {
             label: '输入框',

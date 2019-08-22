@@ -1,6 +1,10 @@
 <script>
 export default {
   props: {
+    hideTableLabel: {
+      type: Array,
+      default() { return [] }
+    },
     bind: {
       type: Object,
       default() { return {} }
@@ -39,7 +43,7 @@ export default {
     },
     getColumns(arr) {
       const h = this.$createElement
-      return arr.map(it => {
+      return arr.filter(it => !~this.hideTableLabel.indexOf(it.label)).map(it => {
         return h('el-table-column', {
           props: {
             label: it.label,

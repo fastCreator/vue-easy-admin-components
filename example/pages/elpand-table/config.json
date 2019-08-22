@@ -27,6 +27,20 @@
             ],
             "data": [
                 {
+                    "prop": "tableFilter",
+                    "des": "是否显示table过滤项",
+                    "type": "Boolean",
+                    "options": "-",
+                    "default": "false"
+                },
+                {
+                    "prop": "tableExport",
+                    "des": "是否显示导出按钮",
+                    "type": "Boolean,Function(row,prop)",
+                    "options": "-",
+                    "default": "false"
+                },
+                {
                     "prop": "filters",
                     "des": "过滤项",
                     "type": "Array",
