@@ -26,12 +26,12 @@
           type="warning"
           @click="clearFilters"
         >重置</el-button>
-        <el-button
+        <!-- <el-button
           v-if="tableExport"
           type="primary"
           icon="el-icon-download"
           @click="exportExcel"
-        >导出</el-button>
+        >导出</el-button> -->
         <el-dropdown
           trigger="click"
           :hide-on-click="false"
@@ -54,6 +54,24 @@
                   <el-checkbox :label="it"></el-checkbox>
                 </div>
               </el-checkbox-group>
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+        <el-dropdown trigger="click">
+          <el-button
+            v-if="tableFilter"
+            type="plain"
+            icon="el-icon-download"
+          >
+            导出
+          </el-button>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item
+              v-for="it in tableExport.bookTypes"
+              :key="it"
+              @click.native="exportExcel(it)"
+            >
+              {{it}}
             </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
@@ -104,8 +122,7 @@ export default {
   },
   props: {
     tableExport: {
-      type: [Boolean, Function],
-      default: false,
+      type: Object
     },
     tableFilter: {
       type: Boolean,
@@ -162,13 +179,13 @@ export default {
     }
   },
   methods: {
-    exportExcel() {
+    exportExcel(bookType) {
       import('./Export2Excel').then(excel => {
         excel.export_json_to_excel({
           ...this.getExportExcelData(),
-          filename: 'excel-list', //非必填
-          autoWidth: true, //非必填
-          bookType: 'xlsx' //非必填
+          filename: this.tableExport.filename,
+          autoWidth: this.tableExport.autoWidth,
+          bookType: bookType
         })
       })
     },
@@ -176,7 +193,7 @@ export default {
       let columns = this.table.columns
       let header = []
       let props = []
-      let tableExportFuc = typeof (this.tableExport) === 'function' ? this.tableExport : false
+      let tableExportFuc = this.tableExport.filter
       this.tableFilterSelected.forEach(st => {
         let ct = columns.find(col => col.label === st)
         this.getChildProp(ct, header, props)

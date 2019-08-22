@@ -35,17 +35,45 @@
                 },
                 {
                     "prop": "tableExport",
-                    "des": "是否显示导出按钮",
-                    "type": "Boolean,Function(row,prop)",
+                    "des": "table导出功能",
+                    "type": "Object",
                     "options": "-",
-                    "default": "false"
+                    "default": "-"
+                },
+                {
+                    "prop": "tableExport.tableExport",
+                    "des": "table导出项过滤器",
+                    "type": "Function(row,prop)",
+                    "options": "-",
+                    "default": "-"
+                },
+                {
+                    "prop": "tableExport.filename",
+                    "des": "导出文件名",
+                    "type": "String",
+                    "options": "-",
+                    "default": "-"
+                },
+                {
+                    "prop": "tableExport.autoWidth",
+                    "des": "是否自适应宽度",
+                    "type": "Boolean",
+                    "options": "-",
+                    "default": "-"
+                },
+                {
+                    "prop": "tableExport.bookTypes",
+                    "des": "可选下载文件类型",
+                    "type": "Array",
+                    "options": "[]",
+                    "default": "-"
                 },
                 {
                     "prop": "filters",
                     "des": "过滤项",
                     "type": "Array",
-                    "options": "-",
-                    "default": "[]"
+                    "options": "xlsx,xlsm,xlsb,biff8,biff5,biff2,xlml,ods,fods,csv,txt,sylk,html,dif,dbf,rtf,prn,eth",
+                    "default": "-"
                 },
                 {
                     "prop": "label",
