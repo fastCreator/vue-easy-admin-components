@@ -9,9 +9,9 @@ export default {
   data() {
     return {
       bind: {
-        tableSort(evt) {
+        tableSort(evt,cb) {
           console.log(evt)
-          return Promise.reslove()
+          cb()
         },
         tableExport: {
           filter(row, prop) {

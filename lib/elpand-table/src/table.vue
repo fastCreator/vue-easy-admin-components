@@ -52,14 +52,21 @@ export default {
     setTableSort() {
       const { tableSort } = this
       if (tableSort) {
+        let disabled = false
         import('sortablejs').then(({ Sortable }) => {
-          console.log(Sortable)
           const el = document.querySelectorAll('.el-table__body-wrapper > table > tbody')[0];
           Sortable.create(el, {
             animation: 150,
             dragClass: "expand-sortable-drag",
-            onEnd: function (evt) {
-              this.$emit('sort', evt)
+            handle: ".sortableHanlder",
+            filter() {
+              return disabled
+            },
+            onEnd: (evt) => {
+              disabled = true
+              this.$emit('sort', evt, () => {
+                disabled = false
+              })
             }
           })
         })
