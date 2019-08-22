@@ -155,8 +155,8 @@ export default {
       total: 0,
       currentPage: this.pagination ? this.pagination.currentPage : 1,
       pageSize: this.pagination ? this.pagination.pageSize : 10,
-      selection: [],
-      tableFilterSelected: []
+      selection: [],//table选中row
+      tableFilterSelected: [],//table显示列
     }
   },
   created() {
@@ -168,6 +168,9 @@ export default {
     },
     hideTableLabel() {
       return this.tableFilterList.filter(it => !~this.tableFilterSelected.indexOf(it))
+    },
+    hasCheckbox() {
+      return this.table.columns.find(it => it.type && it.type === 'selection')
     }
   },
   watch: {
@@ -199,7 +202,7 @@ export default {
         this.getChildProp(ct, header, props)
       })
       return {
-        data: this.tableData.map(row => props.map(prop => {
+        data: (this.hasCheckbox ? this.selection : this.tableData).map(row => props.map(prop => {
           if (tableExportFuc) {
             return tableExportFuc(row, prop)
           } else {
