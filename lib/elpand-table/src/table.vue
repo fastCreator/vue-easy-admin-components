@@ -1,4 +1,5 @@
 <script>
+import { timeFormat } from '../../utils'
 export default {
   props: {
     tableSort: {
@@ -80,6 +81,7 @@ export default {
       return arr.filter(it => !~this.hideTableLabel.indexOf(it.label)).map(it => {
         return h('el-table-column', {
           props: {
+            align: this.getColumnsAlign(it),
             label: it.label,
             type: it.type,
             prop: it.prop,
@@ -87,10 +89,29 @@ export default {
           },
           on: it.on,
           scopedSlots: {
-            default: it.render && function (props) { return it.render(props) }
+            default: this.getColumnsScopedSlots(it)
           }
         }, it.child && this.getColumns(it.child))
       })
+    },
+    getColumnsScopedSlots(it) {
+      if (it.render) {
+        return function (props) { return it.render(props) }
+      }
+      if (it.type === 'time') {
+        return function (props) {
+          console.log(it.prop, props.row, timeFormat, it.format)
+          return timeFormat(props.row[it.prop], it.format)
+        }
+      }
+      if (it.type === 'image') {
+        return function (props) { return <img class="table-img" src={props.row[it.prop]} /> }
+      }
+    },
+    getColumnsAlign(col) {
+      if (['selection', 'image'].find(it => it === col.type)) {
+        return 'center'
+      }
     }
   }
 }
@@ -101,6 +122,12 @@ export default {
     margin-top: 12px;
     .expand-sortable-drag {
       opacity: 0;
+    }
+    .table-img {
+      max-width: 120px;
+      max-height: 120px;
+      min-width: 38px;
+      min-height: 38px;
     }
   }
 }

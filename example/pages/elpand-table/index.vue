@@ -54,6 +54,8 @@ export default {
           },
           columns: [
             { type: 'selection', bind: { width: '55' } },
+            { type: 'time', format: 'yyyy-MM-dd hh:mm:ss', label: '出生时间', prop: 'birth' },
+            { type: 'image', label: '头像', prop: 'header' },
             { label: '姓名', prop: 'name' },
             { label: '年龄', prop: 'age' },
             { label: '性别', prop: 'sex', render(props) { return props.row.sex ? '男' : '女' } },
@@ -104,6 +106,8 @@ export default {
                 sex: 0,
                 mother: '吴**',
                 father: '张**',
+                birth: new Date('2000-01-02'),
+                header: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3139953554,3011511497&fm=26&gp=0.jpg'
               },
               {
                 name: '李四',
@@ -111,6 +115,8 @@ export default {
                 sex: 1,
                 mother: '吴**',
                 father: '张**',
+                birth: new Date('1900-01-02'),
+                header: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3139953554,3011511497&fm=26&gp=0.jpg'
               }
             ],
             pages: {
