@@ -27,6 +27,13 @@
             ],
             "data": [
                 {
+                    "prop": "tableSort",
+                    "des": "开启table拖拽排序",
+                    "type": "Function(data, cb)",
+                    "options": "-",
+                    "default": "false"
+                },
+                {
                     "prop": "tableFilter",
                     "des": "是否显示table过滤项",
                     "type": "Boolean",
@@ -147,9 +154,9 @@
                 },
                 {
                     "prop": "table.columns.type",
-                    "des": "Table-column type",
+                    "des": "封装好的表格内容类型",
                     "type": "String",
-                    "options": "-",
+                    "options": "selection,time,image",
                     "default": "-"
                 },
                 {
