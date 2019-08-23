@@ -9,9 +9,20 @@
   },
   "dependencies": {},
   "peerDependencies": {
-    "element-ui": "^2.11.1"
+    "element-ui": "^2.4.0",
+    "vue": "^2.6.10",
+    "xlsx": "^0.15.1",
+    "file-saver": "^2.0.2",
+    "script-loader": "^0.7.2",
+    "sortablejs": "^1.10.0-rc3"
   },
   "devDependencies": {
+    "element-ui": "^2.4.0",
+    "vue": "^2.6.10",
+    "xlsx": "^0.15.1",
+    "file-saver": "^2.0.2",
+    "script-loader": "^0.7.2",
+    "sortablejs": "^1.10.0-rc3",
     "@vue/cli-plugin-babel": "^3.10.0",
     "@vue/cli-plugin-eslint": "^3.10.0",
     "@vue/cli-service": "^3.10.0",
@@ -19,17 +30,12 @@
     "core-js": "^2.6.5",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
-    "file-saver": "^2.0.2",
     "gh-pages": "2.0.1",
     "less": "^3.9.0",
     "less-loader": "^5.0.0",
     "node-loader": "^0.6.0",
-    "script-loader": "^0.7.2",
-    "sortablejs": "^1.10.0-rc3",
-    "vue": "^2.6.10",
     "vue-router": "^3.1.1",
-    "vue-template-compiler": "^2.6.10",
-    "xlsx": "^0.15.1"
+    "vue-template-compiler": "^2.6.10"
   },
   "eslintConfig": {
     "root": true,
