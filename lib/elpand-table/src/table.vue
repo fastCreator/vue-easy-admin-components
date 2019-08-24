@@ -37,6 +37,7 @@ export default {
       {...bind}
       on-select={handlerSelect}
       on-select-all={handlerSelect}
+      ref="table"
     >
       {getColumns(this.columns)}
       {tableSort && <el-table-column
@@ -80,6 +81,7 @@ export default {
       const h = this.$createElement
       return arr.filter(it => !~this.hideTableLabel.indexOf(it.label)).map(it => {
         return h('el-table-column', {
+          key: it.label,
           props: {
             align: this.getColumnsAlign(it),
             label: it.label,
