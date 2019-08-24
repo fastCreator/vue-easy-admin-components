@@ -100,16 +100,21 @@ export default {
       }
       if (it.type === 'time') {
         return function (props) {
-          console.log(it.prop, props.row, timeFormat, it.format)
           return timeFormat(props.row[it.prop], it.format)
         }
       }
       if (it.type === 'image') {
         return function (props) { return <img class="table-img" src={props.row[it.prop]} /> }
       }
+      if (it.type === 'color') {
+        return function (props) { return <div class="table-color" style={{ backgroundColor: props.row[it.prop] }}></div> }
+      }
+      if (it.type === 'audio') {
+        return function (props) { return <audio class="table-audio" controls="controls" src={props.row[it.prop]}></audio> }
+      }
     },
     getColumnsAlign(col) {
-      if (['selection', 'image'].find(it => it === col.type)) {
+      if (['selection', 'image', 'color', 'audio'].find(it => it === col.type)) {
         return 'center'
       }
     }
@@ -128,6 +133,14 @@ export default {
       max-height: 120px;
       min-width: 38px;
       min-height: 38px;
+    }
+    .table-color {
+      display: inline-block;
+      width: 60px;
+      height: 28px;
+    }
+    .table-audio {
+      width: 270px;
     }
   }
 }

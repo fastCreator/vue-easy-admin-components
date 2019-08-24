@@ -156,7 +156,7 @@
                     "prop": "table.columns.type",
                     "des": "封装好的表格内容类型",
                     "type": "String",
-                    "options": "selection,time,image",
+                    "options": "selection,time,image,color,audio",
                     "default": "-"
                 },
                 {

@@ -58,6 +58,8 @@ export default {
             { type: 'image', label: '头像', prop: 'header' },
             { label: '姓名', prop: 'name' },
             { label: '年龄', prop: 'age' },
+            { type: 'color', label: '喜欢颜色', prop: 'color', bind: { width: '80' } },
+            { type: 'audio', label: '喜欢音乐', prop: 'audio', bind: { width: '320' } },
             { label: '性别', prop: 'sex', render(props) { return props.row.sex ? '男' : '女' } },
             {              label: '家属',
               child: [
@@ -106,7 +108,9 @@ export default {
                 sex: 0,
                 mother: '吴**',
                 father: '张**',
-                birth: new Date('2000-01-02'),
+                birth: '2000-01-02',
+                color: 'red',
+                audio: 'http://m4a.inke.cn/sktv/ori/m4a_64/12/20/1000382_9605.m4a',
                 header: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3139953554,3011511497&fm=26&gp=0.jpg'
               },
               {
@@ -115,7 +119,9 @@ export default {
                 sex: 1,
                 mother: '吴**',
                 father: '张**',
+                color: '#cccccc',
                 birth: new Date('1900-01-02'),
+                audio: 'http://m4a.inke.cn/sktv/ori/m4a_64/12/20/1000382_9605.m4a',
                 header: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3139953554,3011511497&fm=26&gp=0.jpg'
               }
             ],
