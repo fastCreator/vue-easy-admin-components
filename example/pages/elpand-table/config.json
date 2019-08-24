@@ -139,6 +139,13 @@
                     "default": "-"
                 },
                 {
+                    "prop": "table.bind.rowKey",
+                    "des": "列表数据唯一标识key",
+                    "type": "String",
+                    "options": "必填",
+                    "default": "-"
+                },
+                {
                     "prop": "table.on",
                     "des": "el-table绑定的事件",
                     "type": "String",
