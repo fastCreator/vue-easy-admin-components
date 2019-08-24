@@ -1,5 +1,6 @@
 <script>
 import { timeFormat } from '../../utils'
+import { setTimeout } from 'timers';
 export default {
   props: {
     tableSort: {
@@ -11,7 +12,8 @@ export default {
     },
     bind: {
       type: Object,
-      default() { return {} }
+      required: true,
+      default: () => ({ rowKey: 'id' })
     },
     on: {
       type: Object,
@@ -29,14 +31,18 @@ export default {
     }
   },
   render() {
-    const { data, bind, tableSort } = this
+    const { data, tableSort, bind, bind: { rowKey } } = this
     const { getColumns, handlerSelect } = this
+    if (!rowKey) {
+      console.error('bind.rowKey不能为空')
+    }
     return <el-table
       class='my-table'
       data={data}
       {...bind}
       on-select={handlerSelect}
       on-select-all={handlerSelect}
+      row-key={rowKey}
       ref="table"
     >
       {getColumns(this.columns)}
@@ -52,7 +58,7 @@ export default {
   },
   methods: {
     setTableSort() {
-      const { tableSort } = this
+      const { tableSort, data } = this
       if (tableSort) {
         let disabled = false
         import('sortablejs').then(({ Sortable }) => {
@@ -68,6 +74,11 @@ export default {
               disabled = true
               this.$emit('sort', evt, () => {
                 disabled = false
+                let oldRow = data.splice(evt.oldIndex, 1)
+                data.splice(evt.newIndex, 0, oldRow[0])
+                setTimeout(() => {
+                  this.$refs.table.doLayout()
+                }, 0)
               })
             }
           })

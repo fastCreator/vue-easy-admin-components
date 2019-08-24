@@ -1,5 +1,8 @@
 <template>
-  <div class="elpand-table">
+  <div
+    class="elpand-table"
+    v-loading="loading"
+  >
     <div class="filters">
       <div
         class="filters-item"
@@ -157,6 +160,7 @@ export default {
       pageSize: this.pagination ? this.pagination.pageSize : 10,
       selection: [],//table选中row
       tableFilterSelected: [],//table显示列
+      loading: false
     }
   },
   created() {
@@ -272,10 +276,12 @@ export default {
       this.handlerSearch()
     },
     async handlerSearch() {
+      this.loading = true
       let d = await this.search(this.filtersValue, {
         currentPage: this.currentPage,
         pageSize: this.pageSize
       })
+      this.loading = false
       this.tableData = d[this.table.data]
       if (this.pagination) {
         this.total = d

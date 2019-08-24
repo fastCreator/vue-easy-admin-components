@@ -5,6 +5,7 @@
 </template>
 <script>
 import { Promise } from 'q';
+import { setTimeout } from 'timers';
 export default {
   data() {
     return {
@@ -45,7 +46,8 @@ export default {
         table: {
           data: 'list',
           bind: {
-            height: '50vh'
+            height: '50vh',
+            rowKey: 'id'
           },
           on: {
             'row-dblclick'(row, column, event) {
@@ -100,34 +102,40 @@ export default {
         },
         search(filters, pagination) {
           console.log(filters, pagination)
-          return Promise.resolve({
-            list: [
-              {
-                name: '张三',
-                age: Math.random(),
-                sex: 0,
-                mother: '吴**',
-                father: '张**',
-                birth: '2000-01-02',
-                color: 'red',
-                audio: 'http://m4a.inke.cn/sktv/ori/m4a_64/12/20/1000382_9605.m4a',
-                header: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3139953554,3011511497&fm=26&gp=0.jpg'
-              },
-              {
-                name: '李四',
-                age: '21',
-                sex: 1,
-                mother: '吴**',
-                father: '张**',
-                color: '#cccccc',
-                birth: new Date('1900-01-02'),
-                audio: 'http://m4a.inke.cn/sktv/ori/m4a_64/12/20/1000382_9605.m4a',
-                header: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3139953554,3011511497&fm=26&gp=0.jpg'
-              }
-            ],
-            pages: {
-              allSize: 110
-            }
+          return new Promise(resolve => {
+            setTimeout(() => {
+              resolve({
+                list: [
+                  {
+                    id: Math.random(),
+                    name: '张三',
+                    age: Math.random(),
+                    sex: 0,
+                    mother: '吴**',
+                    father: '张**',
+                    birth: '2000-01-02',
+                    color: 'red',
+                    audio: 'http://m4a.inke.cn/sktv/ori/m4a_64/12/20/1000382_9605.m4a',
+                    header: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3139953554,3011511497&fm=26&gp=0.jpg'
+                  },
+                  {
+                    id: Math.random(),
+                    name: '李四',
+                    age: '21',
+                    sex: 1,
+                    mother: '吴**',
+                    father: '张**',
+                    color: '#cccccc',
+                    birth: new Date('1900-01-02'),
+                    audio: 'http://m4a.inke.cn/sktv/ori/m4a_64/12/20/1000382_9605.m4a',
+                    header: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3139953554,3011511497&fm=26&gp=0.jpg'
+                  }
+                ],
+                pages: {
+                  allSize: 110
+                }
+              })
+            }, 1000)
           })
         }
       }
