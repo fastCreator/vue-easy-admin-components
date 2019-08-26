@@ -58,7 +58,7 @@ export default {
   },
   methods: {
     setTableSort() {
-      const { tableSort, data } = this
+      const { tableSort } = this
       if (tableSort) {
         let disabled = false
         import('sortablejs').then(({ Sortable }) => {
@@ -72,13 +72,11 @@ export default {
             },
             onEnd: (evt) => {
               disabled = true
-              this.$emit('sort', evt, () => {
+              let oldRow = this.data.splice(evt.oldIndex, 1)
+              this.data.splice(evt.newIndex, 0, oldRow[0])
+              this.$emit('sort', evt, this.data, () => {
                 disabled = false
-                let oldRow = data.splice(evt.oldIndex, 1)
-                data.splice(evt.newIndex, 0, oldRow[0])
-                setTimeout(() => {
-                  this.$refs.table.doLayout()
-                }, 0)
+
               })
             }
           })

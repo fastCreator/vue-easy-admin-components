@@ -10,8 +10,8 @@ export default {
   data() {
     return {
       bind: {
-        tableSort(evt, cb) {
-          console.log(evt)
+        tableSort(evt, data, cb) {
+          console.log(evt, data)
           //接口调用成功后执行cb()
           cb()
         },

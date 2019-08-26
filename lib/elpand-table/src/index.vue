@@ -186,8 +186,11 @@ export default {
     }
   },
   methods: {
-    handlerSort(evt, cb) {
-      this.tableSort(evt, cb)
+    getData() {
+      return this.tableData
+    },
+    handlerSort(...args) {
+      this.tableSort(...args)
     },
     exportExcel(bookType) {
       import('./Export2Excel').then(excel => {

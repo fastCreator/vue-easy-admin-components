@@ -29,7 +29,7 @@
                 {
                     "prop": "tableSort",
                     "des": "开启table拖拽排序",
-                    "type": "Function(data, cb)",
+                    "type": "Function(data, tableData, cb)",
                     "options": "-",
                     "default": "false"
                 },
@@ -298,6 +298,35 @@
                     "type": "Function(filters, pagination)",
                     "options": "-",
                     "default": "-"
+                }
+            ]
+        },
+        {
+            "title": "Methods",
+            "table": [
+                {
+                    "prop": "name",
+                    "label": "方法名"
+                },
+                {
+                    "prop": "des",
+                    "label": "说明"
+                },
+                {
+                    "prop": "params",
+                    "label": "参数"
+                }
+            ],
+            "data": [
+                {
+                    "name": "handlerSearch",
+                    "des": "触发搜索",
+                    "params": "-"
+                },
+                {
+                    "name": "getData",
+                    "des": "获取当前列表值",
+                    "params": "-"
                 }
             ]
         }
