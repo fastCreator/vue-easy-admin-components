@@ -106,7 +106,7 @@ export default {
     },
     getColumnsScopedSlots(h, it) {
       if (it.render) {
-        return function (props) { return it.render(props) }
+        return function (props) { return it.render(h, props) }
       }
       if (it.type === 'time') {
         return function (props) {

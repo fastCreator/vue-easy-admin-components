@@ -79,7 +79,7 @@ export default {
             { label: '年龄', prop: 'age' },
             { type: 'color', label: '喜欢颜色', prop: 'color', bind: { width: '80' } },
             { type: 'audio', label: '喜欢音乐', prop: 'audio', bind: { width: '320' } },
-            { label: '性别', prop: 'sex', render(props) { return props.row.sex ? '男' : '女' } },
+            { label: '性别', prop: 'sex', render(h, props) { return props.row.sex ? '男' : '女' } },
             {              label: '家属',
               child: [
                 { prop: 'mother', label: '母亲' },
