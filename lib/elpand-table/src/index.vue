@@ -63,7 +63,6 @@
       >
         <el-button
           class="exportExcel"
-          v-if="tableFilter"
           type="primary"
           icon="el-icon-download"
         >
