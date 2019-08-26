@@ -30,7 +30,7 @@ export default {
       }
     }
   },
-  render() {
+  render(h) {
     const { data, tableSort, bind, bind: { rowKey } } = this
     const { getColumns, handlerSelect } = this
     if (!rowKey) {
@@ -45,7 +45,7 @@ export default {
       row-key={rowKey}
       ref="table"
     >
-      {getColumns(this.columns)}
+      {getColumns(h, this.columns)}
       {tableSort && <el-table-column
         width="60"
         label="">
@@ -86,8 +86,7 @@ export default {
     handlerSelect(selection) {
       this.$emit('select', selection)
     },
-    getColumns(arr) {
-      const h = this.$createElement
+    getColumns(h, arr) {
       return arr.filter(it => !~this.hideTableLabel.indexOf(it.label)).map(it => {
         return h('el-table-column', {
           key: it.label,
@@ -100,12 +99,12 @@ export default {
           },
           on: it.on,
           scopedSlots: {
-            default: this.getColumnsScopedSlots(it)
+            default: this.getColumnsScopedSlots(h, it)
           }
-        }, it.child && this.getColumns(it.child))
+        }, it.child && this.getColumns(h, it.child))
       })
     },
-    getColumnsScopedSlots(it) {
+    getColumnsScopedSlots(h, it) {
       if (it.render) {
         return function (props) { return it.render(props) }
       }
@@ -122,6 +121,28 @@ export default {
       }
       if (it.type === 'audio') {
         return function (props) { return <audio class="table-audio" controls="controls" src={props.row[it.prop]}></audio> }
+      }
+      if (it.component) {
+        let c = it.component
+        return function (props) {
+          return h(c.tag,
+            {
+              props: {
+                ...c.bind,
+                value: props.row[it.prop]
+              },
+              attrs: {
+                ...c.bind,
+                value: props.row[it.prop]
+              },
+              on: {
+                ...c.on,
+                input(v) {
+                  props.row[it.prop] = v
+                }              }
+            },
+            c.child)
+        }
       }
     },
     getColumnsAlign(col) {

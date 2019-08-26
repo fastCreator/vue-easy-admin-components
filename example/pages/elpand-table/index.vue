@@ -1,6 +1,9 @@
 <template>
   <div class="elpand-table-demo">
-    <elpand-table v-bind="bind"></elpand-table>
+    <elpand-table
+      ref="table"
+      v-bind="bind"
+    ></elpand-table>
   </div>
 </template>
 <script>
@@ -58,6 +61,20 @@ export default {
             { type: 'selection', bind: { width: '55' } },
             { type: 'time', format: 'yyyy-MM-dd hh:mm:ss', label: '出生时间', prop: 'birth' },
             { type: 'image', label: '头像', prop: 'header' },
+            { component: { tag: 'el-input', bind: {}, on: {} }, label: '输入框', prop: 'input' },
+            {
+              component: {
+                tag: 'elpand-select',
+                bind: {
+                  options: this.getOptions,
+                  optionsProps: {
+                    label: 'label',
+                    value: 'value'
+                  }
+                }, on: {}
+              },
+              label: '下拉选择框', prop: 'select'
+            },
             { label: '姓名', prop: 'name' },
             { label: '年龄', prop: 'age' },
             { type: 'color', label: '喜欢颜色', prop: 'color', bind: { width: '80' } },
@@ -85,9 +102,18 @@ export default {
             }
           },
           {
-            label: '其他操作',
-            call() {
-              alert(2)
+            label: '获取表单数据',
+            call: () => {
+              let tableFef = this.$refs.table
+              // 获取表单数据
+              console.log(tableFef.getData())
+            }
+          },
+          {
+            label: '主动触发search',
+            call: () => {
+              let tableFef = this.$refs.table
+              tableFef.handlerSearch()
             }
           }
         ],
@@ -109,12 +135,14 @@ export default {
                   {
                     id: Math.random(),
                     name: '张三',
-                    age: Math.random(),
+                    age: parseInt(Math.random() * 80),
                     sex: 0,
                     mother: '吴**',
                     father: '张**',
                     birth: '2000-01-02',
                     color: 'red',
+                    input: '输入值1',
+                    select: 'zhangsan',
                     audio: 'http://m4a.inke.cn/sktv/ori/m4a_64/12/20/1000382_9605.m4a',
                     header: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3139953554,3011511497&fm=26&gp=0.jpg'
                   },
@@ -126,6 +154,9 @@ export default {
                     mother: '吴**',
                     father: '张**',
                     color: '#cccccc',
+                    input: '',
+                    select: '',
+                    zhangsan: '',
                     birth: new Date('1900-01-02'),
                     audio: 'http://m4a.inke.cn/sktv/ori/m4a_64/12/20/1000382_9605.m4a',
                     header: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3139953554,3011511497&fm=26&gp=0.jpg'
@@ -144,6 +175,20 @@ export default {
   created() {
   },
   methods: {
+    getOptions() {
+      return Promise.resolve({
+        data: [
+          {
+            label: '张三',
+            value: 'zhangsan'
+          },
+          {
+            label: '李四',
+            value: 'lisi'
+          }
+        ]
+      }).then(d => d.data)
+    }
   }
 }
 </script>
