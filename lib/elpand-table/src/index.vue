@@ -32,9 +32,9 @@
         <el-dropdown
           trigger="click"
           :hide-on-click="false"
+          v-if="tableFilter"
         >
           <el-button
-            v-if="tableFilter"
             type="plain"
             icon="el-icon-menu"
           ></el-button>
@@ -57,7 +57,10 @@
       </div>
     </div>
     <div class="operations">
-      <el-dropdown trigger="click">
+      <el-dropdown
+        trigger="click"
+        v-if="tableExport"
+      >
         <el-button
           class="exportExcel"
           v-if="tableFilter"
