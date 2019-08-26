@@ -86,6 +86,16 @@ export default {
                 { prop: 'father', label: '父亲' }
               ]
             },
+            {
+              label: '操作',
+              bind: { width: '200' },
+              render: (h, props) => {
+                return [
+                  <el-button type="danger" on-click={this.handlerDelete}>删除</el-button>,
+                  <el-button type="warning">警告按钮</el-button>
+                ]
+              }
+            },
           ]
         },
         operations: [
@@ -188,6 +198,9 @@ export default {
           }
         ]
       }).then(d => d.data)
+    },
+    handlerDelete(e) {
+      alert('删除')
     }
   }
 }
