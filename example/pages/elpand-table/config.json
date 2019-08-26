@@ -167,6 +167,34 @@
                     "default": "-"
                 },
                 {
+                    "prop": "table.columns.component",
+                    "des": "绑定组件,自动于tableData绑定值",
+                    "type": "Object",
+                    "options": "-",
+                    "default": "-"
+                },
+                {
+                    "prop": "table.columns.component.tag",
+                    "des": "绑定组件名称",
+                    "type": "String",
+                    "options": "-",
+                    "default": "-"
+                },
+                {
+                    "prop": "table.columns.component.bind",
+                    "des": "绑定组件props",
+                    "type": "Object",
+                    "options": "-",
+                    "default": "-"
+                },
+                {
+                    "prop": "table.columns.component.on",
+                    "des": "绑定组件事件",
+                    "type": "Object",
+                    "options": "-",
+                    "default": "-"
+                },
+                {
                     "prop": "table.columns.label",
                     "des": "Table-column label",
                     "type": "String",
