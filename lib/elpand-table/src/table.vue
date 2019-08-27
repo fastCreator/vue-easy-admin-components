@@ -1,8 +1,10 @@
 <script>
 import { timeFormat } from '../../utils'
-import { setTimeout } from 'timers';
 export default {
   props: {
+    createElement: {
+      type: Function
+    },
     tableSort: {
       type: Function
     },
@@ -33,6 +35,7 @@ export default {
   render(h) {
     const { data, tableSort, bind, bind: { rowKey } } = this
     const { getColumns, handlerSelect } = this
+    h = this.createElement || h
     if (!rowKey) {
       console.error('bind.rowKey不能为空')
     }

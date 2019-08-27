@@ -92,6 +92,7 @@
       v-bind="table"
       @select="handlerSelection"
       @sort="handlerSort"
+      :createElement="createElement"
       :data="tableData"
       :hideTableLabel="hideTableLabel"
       :tableSort="tableSort"
@@ -123,6 +124,9 @@ export default {
     MyTable
   },
   props: {
+    createElement: {
+      type: Function
+    },
     tableSort: {
       type: Function
     },

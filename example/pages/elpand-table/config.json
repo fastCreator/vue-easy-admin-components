@@ -34,6 +34,13 @@
                     "default": "false"
                 },
                 {
+                    "prop": "createElement",
+                    "des": "为了子组件渲染父中components",
+                    "type": "$createElement",
+                    "options": "-",
+                    "default": "false"
+                },
+                {
                     "prop": "tableFilter",
                     "des": "是否显示table过滤项",
                     "type": "Boolean",
