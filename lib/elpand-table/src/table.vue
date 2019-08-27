@@ -1,5 +1,5 @@
 <script>
-import { timeFormat } from '../../utils'
+import { timeFormat } from '../../utils/timer'
 export default {
   props: {
     createElement: {

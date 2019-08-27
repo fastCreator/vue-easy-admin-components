@@ -50,7 +50,8 @@ export default {
           data: 'list',
           bind: {
             height: '50vh',
-            rowKey: 'id'
+            rowKey: 'id',
+            border: true
           },
           on: {
             'row-dblclick'(row, column, event) {
