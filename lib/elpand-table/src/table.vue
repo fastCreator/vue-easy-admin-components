@@ -1,10 +1,11 @@
 <script>
-import { timeFormat } from '../../utils/timer'
+import { timeFormat } from '../../utils'
+import {
+
+
+} from 'timers';
 export default {
   props: {
-    createElement: {
-      type: Function
-    },
     tableSort: {
       type: Function
     },
@@ -35,26 +36,28 @@ export default {
   render(h) {
     const { data, tableSort, bind, bind: { rowKey } } = this
     const { getColumns, handlerSelect } = this
-    h = this.createElement || h
     if (!rowKey) {
       console.error('bind.rowKey不能为空')
     }
-    return <el-table
-      class='my-table'
-      data={data}
-      {...bind}
-      on-select={handlerSelect}
-      on-select-all={handlerSelect}
-      row-key={rowKey}
-      ref="table"
-    >
-      {getColumns(h, this.columns)}
-      {tableSort && <el-table-column
-        width="60"
-        label="">
-        <el-button plain circle icon="el-icon-sort" class="sortableHanlder"></el-button>
-      </el-table-column>}
-    </el-table>
+    return h('el-table', {
+      class: 'my-table',
+      props: {
+        ...bind,
+        data
+      },
+      on: {
+        select: handlerSelect,
+        'select-all': handlerSelect
+      },
+      ref: 'table'
+    }, [
+        getColumns(h, this.columns),
+        !!tableSort && <el-table-column
+          width="60"
+          label="">
+          <el-button plain circle icon="el-icon-sort" class="sortableHanlder"></el-button>
+        </el-table-column>
+      ])
   },
   mounted() {
     this.setTableSort()
