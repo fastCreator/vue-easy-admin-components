@@ -1,9 +1,5 @@
 <script>
-import { timeFormat } from '../../utils'
-import {
-
-
-} from 'timers';
+import { timeFormat } from '../../utils/timer'
 export default {
   props: {
     tableSort: {
