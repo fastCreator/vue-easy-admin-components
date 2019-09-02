@@ -139,19 +139,20 @@ export default {
         return (props) => <audio class="table-audio" controls="controls" src={props.row[it.prop]}></audio>
       }
       if (it.type === 'btns') {
-        return (props) => it.btns.map((bt, i) => h('el-button', {
-          props: {
-            ...bt.bind,
-            type: bt.type
-          },
-          on: {
-            ...bt.on,
-            click: () => {
-              this.confirm(bt, props)
-            }
-          },
-          key: i
-        }, bt.label))
+        return (props) => it.btns(props)
+          .map((bt, i) => h('el-button', {
+            props: {
+              ...bt.bind,
+              type: bt.type
+            },
+            on: {
+              ...bt.on,
+              click: () => {
+                this.confirm(bt, props)
+              }
+            },
+            key: i
+          }, bt.label))
       }
       if (it.component) {
         let c = it.component

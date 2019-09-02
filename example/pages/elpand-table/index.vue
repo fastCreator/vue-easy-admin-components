@@ -91,17 +91,36 @@ export default {
               label: '操作',
               bind: { width: '200' },
               type: 'btns',
-              btns: [
-                {
-                  label: '删除',
-                  type: 'danger',
-                  confirm: '你确认删除吗？',
-                  call(props, handlerSearch) {
-                    console.log(props)
-                    handlerSearch()
+              btns(props) {
+                let btns = [
+                  {
+                    label: '删除',
+                    type: 'danger',
+                    confirm: '你确认删除吗？',
+                    call(props, handlerSearch) {
+                      console.log(props)
+                      handlerSearch()
+                    }
+                  },
+                  {
+                    label: '禁用 ',
+                    bind: {
+                      disabled: true
+                    }
                   }
+                ]
+                if (props.row.status === 1) {
+                  btns.push(
+                    {
+                      label: '隐藏',
+                      call(props, handlerSearch) {
+                        console.log(props)
+                        handlerSearch()
+                      }
+                    })
                 }
-              ]
+                return btns
+              }
             },
           ]
         },
