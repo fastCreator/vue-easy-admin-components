@@ -92,6 +92,7 @@
       v-bind="table"
       @select="handlerSelection"
       @sort="handlerSort"
+      :handlerSearch="handlerSearch"
       :createElement="createElement"
       :data="tableData"
       :hideTableLabel="hideTableLabel"

@@ -5,6 +5,9 @@ export default {
     tableSort: {
       type: Function
     },
+    handlerSearch: {
+      type: Function
+    },
     hideTableLabel: {
       type: Array,
       default() { return [] }
@@ -59,6 +62,19 @@ export default {
     this.setTableSort()
   },
   methods: {
+    confirm(it, prop) {
+      if (it.confirm) {
+        this.$confirm(it.confirm, '', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          it.call(prop, this.handlerSearch)
+        })
+      } else {
+        it.call(prop, this.handlerSearch)
+      }
+    },
     setTableSort() {
       const { tableSort } = this
       if (tableSort) {
@@ -108,21 +124,34 @@ export default {
     },
     getColumnsScopedSlots(h, it) {
       if (it.render) {
-        return function (props) { return it.render(h, props) }
+        return (props) => it.render(h, props)
       }
       if (it.type === 'time') {
-        return function (props) {
-          return timeFormat(props.row[it.prop], it.format)
-        }
+        return (props) => timeFormat(props.row[it.prop], it.format)
       }
       if (it.type === 'image') {
-        return function (props) { return <img class="table-img" src={props.row[it.prop]} /> }
+        return (props) => <img class="table-img" src={props.row[it.prop]} />
       }
       if (it.type === 'color') {
-        return function (props) { return <div class="table-color" style={{ backgroundColor: props.row[it.prop] }}></div> }
+        return (props) => <div class="table-color" style={{ backgroundColor: props.row[it.prop] }}></div>
       }
       if (it.type === 'audio') {
-        return function (props) { return <audio class="table-audio" controls="controls" src={props.row[it.prop]}></audio> }
+        return (props) => <audio class="table-audio" controls="controls" src={props.row[it.prop]}></audio>
+      }
+      if (it.type === 'btns') {
+        return (props) => it.btns.map((bt, i) => h('el-button', {
+          props: {
+            ...bt.bind,
+            type: bt.type
+          },
+          on: {
+            ...bt.on,
+            click: () => {
+              this.confirm(bt, props)
+            }
+          },
+          key: i
+        }, bt.label))
       }
       if (it.component) {
         let c = it.component

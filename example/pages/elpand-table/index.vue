@@ -90,12 +90,18 @@ export default {
             {
               label: '操作',
               bind: { width: '200' },
-              render: (h, props) => {
-                return [
-                  <el-button type="danger" on-click={this.handlerDelete}>删除</el-button>,
-                  <el-button type="warning">警告按钮</el-button>
-                ]
-              }
+              type: 'btns',
+              btns: [
+                {
+                  label: '删除',
+                  type: 'danger',
+                  confirm: '你确认删除吗？',
+                  call(props, handlerSearch) {
+                    console.log(props)
+                    handlerSearch()
+                  }
+                }
+              ]
             },
           ]
         },
