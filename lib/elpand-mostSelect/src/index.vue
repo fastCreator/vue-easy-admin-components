@@ -6,7 +6,7 @@
         @input="changeSearchText"
       />
     </div>
-    <div>
+    <div class="select-all-wrap">
       <el-checkbox
         :indeterminate="isIndeterminate"
         :value="ischeckAll"
@@ -21,6 +21,7 @@
         @input="input"
       >
         <el-checkbox
+          border
           v-for="it in options"
           :key="it[optionsProps.value]"
           :label="it[optionsProps.value]"
@@ -44,8 +45,10 @@
 </template>
 <script>
 import { debounce } from '../../utils/commom';
+import emitter from '../../utils/emitter';
 export default {
   name: 'elpand-mostSelect',
+  mixins: [emitter],
   props: {
     searchProps: {
       type: Object,
@@ -71,7 +74,11 @@ export default {
           pageSize: 20
         }
       }
-    }
+    },
+    validateEvent: {
+      type: Boolean,
+      default: true
+    },
   },
   data() {
     return {
@@ -105,6 +112,9 @@ export default {
     },
     input(v) {
       this.$emit('input', v)
+      if (this.validateEvent) {
+        this.dispatch('ElFormItem', 'el.form.change', [v]);
+      }
     },
     changeSearchText(v) {
       this.searchText = v
@@ -161,10 +171,17 @@ export default {
 </script>
 <style lang="less">
 .elpand-mostSelect {
+  .select-all-wrap {
+    margin-top: 6px;
+  }
   .el-checkbox-group {
+    padding-left: 14px;
     .el-checkbox {
-      margin-left: 30px;
+      margin-left: 10px;
+      margin-right: 10px;
+      margin-top: 8px;
     }
+    margin-bottom: 10px;
   }
 }
 </style>

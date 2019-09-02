@@ -51,6 +51,10 @@ export default {
     type: {
       type: Array,
       default: () => (['png', 'jpg', 'jpeg'])
+    },
+    validateEvent: {
+      type: Boolean,
+      default: true
     }
   },
   computed: {
@@ -61,6 +65,9 @@ export default {
   methods: {
     input(v) {
       this.$emit('input', v)
+      if (this.validateEvent) {
+        this.dispatch('ElFormItem', 'el.form.change', [this.value]);
+      }
     },
     async change(e) {
       this.input(await this.upload(e))

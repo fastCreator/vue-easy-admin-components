@@ -37,7 +37,7 @@ export default {
             list: [
               { label: '张三1', value: '1' },
               { label: '张三2', value: '2' },
-              { label: '张三3', value: '3' },
+              { label: '张三3', value: '3' }
             ],
             total: 100
           })
