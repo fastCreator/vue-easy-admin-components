@@ -9,11 +9,9 @@
   ></el-cascader>
 </template>
 <script>
-import emitter from '../../utils/emitter';
 import address from './address'
 export default {
   name: 'elpand-address',
-  mixins: [emitter],
   props: {
     options: {
       type: [Function, Array],
@@ -29,10 +27,6 @@ export default {
     },
     value: {
       required: true
-    },
-    validateEvent: {
-      type: Boolean,
-      default: true
     }
   },
   data() {
@@ -54,9 +48,6 @@ export default {
     },
     input(v) {
       this.$emit('input', v)
-      if (this.validateEvent) {
-        this.dispatch('ElFormItem', 'el.form.change', [this.value]);
-      }
     }
   }
 }
