@@ -80,7 +80,6 @@ export default {
     }
   },
   created() {
-    setMinvalue()
   },
   render(h) {
     const { value, tag, bind, on, createElement, row, min, max } = this

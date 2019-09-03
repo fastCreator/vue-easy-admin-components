@@ -29,31 +29,33 @@ export default {
       })
     },
     getFormItem(h) {
-      return this.list.map(it => {
-        return h('el-form-item', {
-          props: {
-            ...it.itemBind,
-            label: it.label,
-            prop: it.prop,
-          },
-          on: {
-            ...it.itemOn
-          }
-        }, [
-            h(it.tag, {
-              props: {
-                ...it.bind,
-                value: this.data[it.prop]
-              },
-              on: {
-                ...it.on,
-                input: (v) => {
-                  this.data[it.prop] = v
+      return this.list
+        .filter(it => !it.visible || it.visible(this.data))
+        .map(it => {
+          return h('el-form-item', {
+            props: {
+              ...it.itemBind,
+              label: it.label,
+              prop: it.prop,
+            },
+            on: {
+              ...it.itemOn
+            }
+          }, [
+              h(it.tag, {
+                props: {
+                  ...it.bind,
+                  value: this.data[it.prop]
+                },
+                on: {
+                  ...it.on,
+                  input: (v) => {
+                    this.data[it.prop] = v
+                  }
                 }
-              }
-            })
-          ])
-      })
+              })
+            ])
+        })
     }
   },
   render(h) {
