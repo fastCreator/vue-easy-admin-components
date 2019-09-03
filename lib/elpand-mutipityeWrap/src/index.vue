@@ -5,6 +5,14 @@ export default {
   mixins: [emitter],
   name: 'elpand-mutipityeWrap',
   props: {
+    min: {
+      type: Number,
+      default: 1
+    },
+    max: {
+      type: Number,
+      default: 10
+    },
     createElement: {
       type: Function
     },
@@ -34,6 +42,9 @@ export default {
     on: {
       type: Object,
       default: () => ({})
+    },
+    row: {
+      default: () => ({ left: 18, right: 6 })
     }
   },
   methods: {
@@ -68,8 +79,11 @@ export default {
       }
     }
   },
+  created() {
+    setMinvalue()
+  },
   render(h) {
-    const { value, tag, bind, on, createElement } = this
+    const { value, tag, bind, on, createElement, row, min, max } = this
     const { getValue, input, Delete, Add } = this
     if (createElement) {
       h = createElement
@@ -77,41 +91,49 @@ export default {
     return <div class="elpand-mutipityeWrap">
       {
         value.map((it, i) =>
-          <el-row>
-            <el-form-item key={i}>
-              <el-col span={18}>
-                {
-                  h(tag, {
-                    props: {
-                      ...bind,
-                      value: getValue(it)
-                    },
-                    attrs: {
-                      ...bind,
-                      value: getValue(it)
-                    },
-                    on: {
-                      ...on,
-                      input: input(it, i)
-                    }
-                  })
-                }
-              </el-col>
-              <el-col span={6}>
-                <i
+          <el-row key={i}>
+            <el-col span={row.left}>
+              {
+                h(tag, {
+                  props: {
+                    ...bind,
+                    index: i,
+                    value: getValue(it)
+                  },
+                  attrs: {
+                    ...bind,
+                    value: getValue(it)
+                  },
+                  on: {
+                    ...on,
+                    input: input(it, i)
+                  }
+                })
+              }
+            </el-col>
+            <el-col span={row.right}>
+              {
+                value.length > min && <i
                   class="el-icon-remove-outline"
                   on-click={() => { Delete(i) }}
                 >
                 </i>
-              </el-col>
-            </el-form-item>
+              }
+            </el-col>
           </el-row>
         )
       }
-      <i
-        class="el-icon-circle-plus-outline"
-        on-click={Add}
-      ></i>
+      {
+        value.length < max &&
+        <el-row class="add-icon">
+          <el-col span={row.right} offset={row.left}>
+            <i
+              class="el-icon-circle-plus-outline"
+              on-click={Add}
+            ></i>
+          </el-col>
+        </el-row>
+      }
     </div>
   }
 }
@@ -127,6 +149,11 @@ export default {
   }
   .el-icon-remove-outline {
     color: #dd6161;
+  }
+  .el-row {
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
   }
 }
 </style>
