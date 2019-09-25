@@ -27,7 +27,7 @@ export default {
           },
           on: {},
           bind: {
-            labelWidth: '80px'
+            labelWidth: '180px'
           },
           list: [
             {
@@ -36,6 +36,14 @@ export default {
               label: '姓名',
               itemBind: {
                 rules: [{ required: true, message: '姓名不能为空' }]
+              }
+            },
+            {
+              tag: 'el-input',
+              prop: 'hide',
+              label: '隐藏项name=1',
+              visible(data) {
+                return data.name !== '1'
               }
             }
           ],

@@ -37,7 +37,6 @@ export default {
     }
   },
   async created() {
-    console.log(this)
     if (typeof (this.options) === 'function') {
       this.items = await this.options()
     } else {
