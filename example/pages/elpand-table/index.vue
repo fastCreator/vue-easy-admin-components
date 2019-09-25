@@ -226,6 +226,7 @@ export default {
       }).then(d => d.data)
     },
     handlerDelete(e) {
+      console.log(e)
       alert('删除')
     }
   }

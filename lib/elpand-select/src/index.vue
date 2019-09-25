@@ -1,6 +1,7 @@
 <template>
   <el-select
     class="elpand-select"
+    :value="value"
     v-bind="$attrs"
     v-on="_events"
   >
@@ -18,6 +19,7 @@ export default {
   name: 'elpand-select',
   props: {
     type: [Array, Function],
+    value: {},
     options: {
       default() { return [] }
     },

@@ -8,6 +8,22 @@
   </div>
 </template>
 <script>
+const selectData = {
+  options: [
+    {
+      label: '张三',
+      value: 'zhangsan'
+    },
+    {
+      label: '李四',
+      value: 'lisi'
+    }
+  ],
+  optionsProps: {
+    label: 'label',
+    value: 'value'
+  },
+}
 import { Promise } from 'q';
 export default {
   data() {
@@ -23,7 +39,8 @@ export default {
         },
         form: {
           data: {
-            name: '张珊珊'
+            name: 'zhangsan',
+            hide: ''
           },
           on: {},
           bind: {
@@ -31,9 +48,13 @@ export default {
           },
           list: [
             {
-              tag: 'el-input',
+              tag: 'elpand-select',
               prop: 'name',
               label: '姓名',
+              bind: {
+                options: selectData.options,
+                optionsProps: selectData.optionsProps
+              },
               itemBind: {
                 rules: [{ required: true, message: '姓名不能为空' }]
               }
@@ -41,9 +62,10 @@ export default {
             {
               tag: 'el-input',
               prop: 'hide',
-              label: '隐藏项name=1',
+              label: '隐藏项',
               visible(data) {
-                return data.name !== '1'
+                console.log(data)
+                return data.name !== 'zhangsan'
               }
             }
           ],

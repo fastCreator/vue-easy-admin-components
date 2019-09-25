@@ -32,7 +32,8 @@ export default {
       })
     },
     getFormItem(h) {
-      return this.list.map(it => {
+      return this.list.filter(it => !it.visible || !it.visible(this.data)).map(it => {
+        console.log(it.bind)
         return h('el-form-item', {
           props: {
             ...it.itemBind,

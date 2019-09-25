@@ -15,6 +15,7 @@
             v-bind:is="it.tag"
             v-bind="it.bind"
             v-on="it.on"
+            clearable
             :value="filtersValue[it.prop]"
             @input="setFiltersValue($event,it.prop)"
           ></component>
