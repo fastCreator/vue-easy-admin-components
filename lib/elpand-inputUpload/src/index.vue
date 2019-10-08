@@ -8,8 +8,7 @@
         :value="value"
         @input="input"
         :placeholder="placeholder"
-      >
-      </el-input>
+      />
     </el-col>
     <el-col :span="4">
       <el-upload

@@ -1,23 +1,8 @@
 <template>
-  <el-upload
-    class="elpand-upload"
-    :value="value"
-    @input="input"
-    v-bind="bind"
-    v-on="on"
-  >
-    <slot
-      name="tip"
-      slot="tip"
-    ></slot>
-    <slot
-      name="trigger"
-      slot="trigger"
-    ></slot>
-    <slot
-      name="default"
-      slot="default"
-    ></slot>
+  <el-upload class="elpand-upload" :value="value" @input="input" v-bind="bind" v-on="on">
+    <slot name="tip" slot="tip"></slot>
+    <slot name="trigger" slot="trigger"></slot>
+    <slot name="default" slot="default"></slot>
   </el-upload>
 </template>
 <script>

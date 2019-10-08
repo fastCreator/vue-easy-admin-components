@@ -10,8 +10,7 @@
       :key="item[optionsProps.value]"
       :label="item[optionsProps.label]"
       :value="item[optionsProps.value]"
-    >
-    </el-option>
+    />
   </el-select>
 </template>
 <script>
@@ -39,6 +38,7 @@ export default {
     }
   },
   async created() {
+    console.log(this)
     if (typeof (this.options) === 'function') {
       this.items = await this.options()
     } else {

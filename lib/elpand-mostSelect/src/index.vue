@@ -88,8 +88,7 @@ export default {
         <el-checkbox
           indeterminate={this.isIndeterminate}
           value={this.ischeckAll}
-          on-input={this.checkAll}
-        >
+          on-input={this.checkAll}>
           全选
       </el-checkbox>
       </div>
@@ -117,9 +116,7 @@ export default {
             on-size-change={this.handlerSizeChange}
             on-current-change={this.handlerSearch}
             on-prev-click={this.handlerSearch}
-            on-next-click={this.handlerSearch}
-          >
-          </el-pagination>
+            on-next-click={this.handlerSearch}/>
         }
       </div>
     </div>

@@ -1,54 +1,28 @@
 <template>
-  <div
-    class="elpand-table"
-    v-loading="loading"
-  >
+  <div class="elpand-table" v-loading="loading">
     <div class="filters">
-      <div
-        class="filters-item"
-        v-for="it in filters"
-        :key="it.prop"
-      >
+      <div class="filters-item" v-for="it in filters" :key="it.prop">
         <div class="filters-label">{{it.label}}：</div>
         <div class="filters-value">
-          <component
-            v-bind:is="it.tag"
-            v-bind="it.bind"
-            v-on="it.on"
-            clearable
-            :value="filtersValue[it.prop]"
-            @input="setFiltersValue($event,it.prop)"
-          ></component>
+          <component 
+            v-bind:is="it.tag" 
+            v-bind="it.bind" 
+            v-on="it.on" 
+            clearable 
+            :value="filtersValue[it.prop]" 
+            @input="setFiltersValue($event,it.prop)">
+          </component>
         </div>
       </div>
       <div class="btns">
-        <el-button
-          type="primary"
-          @click="handlerSearch"
-        >搜索</el-button>
-        <el-button
-          type="warning"
-          @click="clearFilters"
-        >重置</el-button>
-        <el-dropdown
-          trigger="click"
-          :hide-on-click="false"
-          v-if="tableFilter"
-        >
-          <el-button
-            type="plain"
-            icon="el-icon-menu"
-          ></el-button>
+        <el-button type="primary" @click="handlerSearch">搜索</el-button>
+        <el-button type="warning" @click="clearFilters">重置</el-button>
+        <el-dropdown v-if="tableFilter" trigger="click" :hide-on-click="false">
+          <el-button type="plain" icon="el-icon-menu"></el-button>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>
-              <el-checkbox-group
-                v-model="tableFilterSelected"
-                :min="1"
-              >
-                <div
-                  v-for="it in tableFilterList"
-                  :key="it"
-                >
+              <el-checkbox-group v-model="tableFilterSelected" :min="1">
+                <div v-for="it in tableFilterList" :key="it">
                   <el-checkbox :label="it"></el-checkbox>
                 </div>
               </el-checkbox-group>
@@ -58,34 +32,13 @@
       </div>
     </div>
     <div class="operations">
-      <el-dropdown
-        trigger="click"
-        v-if="tableExport"
-      >
-        <el-button
-          class="exportExcel"
-          type="primary"
-          icon="el-icon-download"
-        >
-          导出
-        </el-button>
+      <el-dropdown trigger="click" v-if="tableExport">
+        <el-button class="exportExcel" type="primary" icon="el-icon-download">导出</el-button>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item
-            v-for="it in tableExport.bookTypes"
-            :key="it"
-            @click.native="exportExcel(it)"
-          >
-            {{it}}
-          </el-dropdown-item>
+          <el-dropdown-item v-for="it in tableExport.bookTypes" :key="it" @click.native="exportExcel(it)">{{it}}</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
-      <el-button
-        v-for="(it,i) in operations"
-        :key="i"
-        v-bind="it.bind"
-        v-on="it.on"
-        @click="operationHandler(it)"
-      >
+      <el-button v-for="(it,i) in operations" :key="i" v-bind="it.bind" v-on="it.on" @click="operationHandler(it)">
         {{it.label}}
       </el-button>
     </div>
@@ -97,12 +50,11 @@
       :createElement="createElement"
       :data="tableData"
       :hideTableLabel="hideTableLabel"
-      :tableSort="tableSort"
-    ></my-table>
+      :tableSort="tableSort">
+    </my-table>
     <div
       class="pagination"
-      v-if="pagination"
-    >
+      v-if="pagination">
       <el-pagination
         v-bind="pagination.bind"
         v-on="pagination.on"
@@ -112,8 +64,7 @@
         @size-change="handerSizeChange"
         @current-change="changePage"
         @prev-click="changePage"
-        @next-click="changePage"
-      >
+        @next-click="changePage">
       </el-pagination>
     </div>
   </div>
