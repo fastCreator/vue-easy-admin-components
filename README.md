@@ -39,3 +39,7 @@ example/pages/对应组件/config.json中填写对应JSON文档
 1. 修改packjson版本号
 2. npm run deploy
 ```
+
+### Feature
+- 等待版本稳定，打包为library，公用模块独立externals
+- 

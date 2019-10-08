@@ -17,6 +17,14 @@ module.exports = {
           ]
         }
       ]
+    },
+    externals: {
+      // lodash: {
+      //   commonjs: 'libraryName',
+      //   commonjs2: 'libraryName',
+      //   amd: 'libraryName',
+      //   root: '_'
+      // }
     }
   }
 }
