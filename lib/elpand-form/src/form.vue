@@ -48,6 +48,10 @@ export default {
               ...it.bind,
               value: this.data[it.prop]
             },
+            attrs: {
+              ...it.bind,
+              value: this.data[it.prop]
+            },
             on: {
               ...it.on,
               input: (v) => {
