@@ -5,13 +5,15 @@
       <el-menu
         :default-active="activeMenu"
         :collapse="collapse"
+        unique-opened
         v-bind="menu"
         mode="vertical"
       >
         <sidebar-item
-          v-for="route in navs"
+          v-for="(route,index) in navs"
           :key="route.path"
           :item="route"
+          :basePath="`${index}`"
         />
       </el-menu>
     </el-scrollbar>
@@ -38,6 +40,8 @@ export default {
   },
   created () {
     console.log(this.navs)
+    console.log(this.collapse)
+    console.log(this.activeMenu)
   },
   methods: {}
 }

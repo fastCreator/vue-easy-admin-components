@@ -9,7 +9,6 @@
   },
   "dependencies": {},
   "peerDependencies": {
-    "element-ui": "^2.4.0",
     "vue": "^2.6.10",
     "xlsx": "^0.15.1",
     "file-saver": "^2.0.2",
@@ -24,7 +23,6 @@
     "babel-eslint": "^10.0.1",
     "core-js": "^2.6.5",
     "driver.js": "^0.9.7",
-    "element-ui": "^2.4.0",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
     "file-saver": "^2.0.2",

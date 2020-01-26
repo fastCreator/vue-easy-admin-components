@@ -1,12 +1,17 @@
 <template>
   <div class="elpand-layout">
     <elpand-layoutSidebar
+      class="layoutSidebar"
       v-bind="layout.sidebar"
       :collapse="collapse"
       :navs="navs"
       :activeMenu="activeMenu"
+      :style="{width:collapse?null:width}"
     />
-    <router-view />
+    <div class="layoutRight">
+      <el-button @click="toggleSidebar">切换</el-button>
+      <router-view />
+    </div>
   </div>
 </template>
 
@@ -15,9 +20,14 @@ import { treeFilter } from '../../utils/commom'
 import { mapState } from 'vuex'
 export default {
   name: 'elpand-layout',
+  props: {
+    width: {
+      default: '210px'
+    }
+  },
   data () {
     return {
-      collapse: true
+      collapse: false
     }
   },
   computed: {
@@ -29,15 +39,43 @@ export default {
         // return treeFilter(state.navs.navs, state.permission.permission)
       }
     }),
-    activeMenu() {
+    activeMenu () {
       return this.$route.path
     }
   },
-  created () {},
+  created () { },
   methods: {
-    handleClickOutside () {}
+    handleClickOutside () { },
+    toggleSidebar () {
+      this.collapse = !this.collapse
+    }
   }
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="less">
+.elpand-layout {
+  display: flex;
+  .elpand-layoutSidebar {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    .el-scrollbar {
+      flex: 1;
+      .scrollbar-wrapper {
+        overflow-x: hidden;
+        .el-scrollbar__view {
+          height: 100%;
+          > .el-menu {
+            height: 100%;
+          }
+        }
+      }
+    }
+
+    // .el-menu {
+    //   width: 210px;
+    // }
+  }
+}
+</style>
