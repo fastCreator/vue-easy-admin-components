@@ -1,34 +1,52 @@
 <template>
-  <div class="elpand-layout">
-    <elpand-layoutSidebar
-      class="layoutSidebar"
+  <div :class="{'elpand-layout':true,affixHeader:layout.setting.affixHeader,collapse:collapse}">
+      <elpand-layoutSidebar
       v-bind="layout.sidebar"
       :collapse="collapse"
       :navs="navs"
       :activeMenu="activeMenu"
-      :style="{width:collapse?null:width}"
+      @menuSelect="menuSelect"
     />
     <div class="layoutRight">
-      <el-button @click="toggleSidebar">切换</el-button>
-      <router-view />
+        <div class="header-container">
+          <elpand-layoutHeader @toggle="handlerToggle" :collapse="collapse" :selectRouter="selectRouter"></elpand-layoutHeader>
+          <TagsView v-show="layout.setting.tagsView" @changeTag="changeTag" :selectRouter="selectRouter"/>
+        </div>
+        <app-main :class="{tagsView:layout.setting.tagsView}" :show="show" :tags="tags"/>
     </div>
+    <elpand-layoutSetting v-if="layout.setting.show"/>
   </div>
 </template>
 
 <script>
 import { treeFilter } from '../../utils/commom'
 import { mapState } from 'vuex'
+import appMain from './appMain'
+import TagsView from './TagsView/index'
 export default {
   name: 'elpand-layout',
-  props: {
-    width: {
-      default: '210px'
-    }
+  components: {
+    appMain,
+    TagsView
   },
   data () {
     return {
-      collapse: false
+      collapse: false,
+      tags: [],
+      show: true,
+      selectRouter: null,
+      affixHeader: false
     }
+  },
+  watch: {
+    $route: {
+      handler (n) {
+        if (n.path.slice(0, 6) === '/pages' && !n.meta.nav.hide) {
+          this.selectRouter = n
+        }
+      },
+      immediate: true
+    },
   },
   computed: {
     ...mapState({
@@ -41,13 +59,23 @@ export default {
     }),
     activeMenu () {
       return this.$route.path
-    }
+    },
   },
-  created () { },
+  created () {
+  },
   methods: {
     handleClickOutside () { },
-    toggleSidebar () {
+    handlerToggle () {
       this.collapse = !this.collapse
+    },
+    changeTag (tags) {
+      this.tags = tags
+    },
+    menuSelect () {
+      this.show = false
+      setTimeout(() => {
+        this.show = true
+      }, 0)
     }
   }
 }
@@ -56,10 +84,41 @@ export default {
 <style lang="less">
 .elpand-layout {
   display: flex;
+  &.affixHeader {
+    .header-container {
+      z-index: 200;
+      position: fixed;
+      top: 0;
+      width: 100%;
+    }
+    .app-main {
+      padding-top: 50px;
+      &.tagsView {
+        padding-top: 85px;
+      }
+    }
+  }
+  &.collapse {
+    .elpand-layoutSidebar {
+      width: 54px;
+    }
+    .layoutRight {
+      margin-left: 54px;
+    }
+  }
+  .elpand-layoutSidebar-wrap {
+    width: 210px;
+  }
   .elpand-layoutSidebar {
+    z-index: 99;
+    position: fixed;
+    top: 0;
     height: 100vh;
     display: flex;
     flex-direction: column;
+    transition: all 0.28s;
+    background-color: rgb(84, 92, 100);
+    width: 210px;
     .el-scrollbar {
       flex: 1;
       .scrollbar-wrapper {
@@ -68,14 +127,25 @@ export default {
           height: 100%;
           > .el-menu {
             height: 100%;
+            width: 100%;
+            border: none;
+            a {
+              text-decoration: none;
+            }
           }
         }
       }
     }
-
-    // .el-menu {
-    //   width: 210px;
-    // }
+  }
+  .elpand-layoutHeader {
+    height: 50px;
+  }
+  .layoutRight {
+    transition: all 0.28s;
+    flex: 1;
+    position: relative;
+    height: 100vh;
+    margin-left: 210px;
   }
 }
 </style>

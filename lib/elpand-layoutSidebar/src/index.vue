@@ -7,6 +7,7 @@
         :collapse="collapse"
         unique-opened
         v-bind="menu"
+        @select="select"
         mode="vertical"
       >
         <sidebar-item
@@ -39,11 +40,12 @@ export default {
     return {}
   },
   created () {
-    console.log(this.navs)
-    console.log(this.collapse)
-    console.log(this.activeMenu)
   },
-  methods: {}
+  methods: {
+    select (...args) {
+      this.$emit('menuSelect', ...args)
+    }
+  }
 }
 </script>
 <style lang="less">
