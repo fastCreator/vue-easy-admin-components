@@ -20,7 +20,7 @@ export default {
         }
       }, children)
     } else {
-      return h('router-link', { props: { to: `/redirect/pages/${to}` } }, children)
+      return h('router-link', { props: { to: `/redirect/local/${to}` } }, children)
     }
   }
 }

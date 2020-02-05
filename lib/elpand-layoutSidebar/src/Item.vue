@@ -30,5 +30,6 @@ export default {
 <style lang="less" scoped>
 .svg-icon {
   margin-right: 16px;
+  vertical-align: middle;
 }
 </style>

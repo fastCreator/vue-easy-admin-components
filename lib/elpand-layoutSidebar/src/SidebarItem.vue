@@ -1,6 +1,6 @@
 <template> 
   <app-link v-if="!item.hidden&&item.code" :to="item.link || item.code">
-    <el-menu-item :index="`/pages/${item.code}`">
+    <el-menu-item :index="`/local/${item.code}`">
       <item :icon="item.icon" :title="item.title" />
     </el-menu-item>
   </app-link> 

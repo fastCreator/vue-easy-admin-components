@@ -1,7 +1,8 @@
 <template>
 <div class="elpand-layoutHeader">
     <Hamburger @toggle="handlerToggle" :isActive="!collapse"/>
-    <Breadcrumb :nav="selectRouter.meta.nav"/>
+    <Breadcrumb :nav="selectNav"/>
+    <elpand-header/>
 </div>
 </template>
 <script>
@@ -23,6 +24,11 @@ export default {
     }
   },
   created () {
+  },
+  computed: {
+    selectNav () {
+      return (this.selectRouter && this.selectRouter.meta) ? this.selectRouter.meta.nav : []
+    }
   },
   methods: {
     handlerToggle () {

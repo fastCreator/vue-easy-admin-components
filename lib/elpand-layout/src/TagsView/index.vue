@@ -53,7 +53,9 @@ export default {
     },
     selectRouter: {
       handler (n) {
-        this.addVisitedViews(n)
+        if (n) {
+          this.addVisitedViews(n)
+        }
       },
       immediate: true
     },

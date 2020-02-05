@@ -41,7 +41,7 @@ export default {
   watch: {
     $route: {
       handler (n) {
-        if (n.path.slice(0, 6) === '/pages' && !n.meta.nav.hide) {
+        if (n.path.slice(0, 6) === '/local' && !n.meta.nav.hide) {
           this.selectRouter = n
         }
       },
@@ -85,11 +85,16 @@ export default {
 .elpand-layout {
   display: flex;
   &.affixHeader {
+    &.collapse {
+      .header-container {
+        width: calc(100% - 54px);
+      }
+    }
     .header-container {
       z-index: 200;
       position: fixed;
       top: 0;
-      width: 100%;
+      width: calc(100% - 210px);
     }
     .app-main {
       padding-top: 50px;
