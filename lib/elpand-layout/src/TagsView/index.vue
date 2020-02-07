@@ -17,15 +17,16 @@
       </router-link>
     </scroll-pane>
     <ul v-show="visible" class="contextmenu" :style="{left:left+'px',top:top+'px'}" >
-      <li @click="refreshSelectedTag(selectedTag)">Refresh</li>
-      <li v-if="!isAffix(selectedTag)" @click="closeSelectedTag(selectedTag)">Close</li>
-      <li @click="closeOthersTags">Close Others</li>
-      <li @click="closeAllTags(selectedTag)">Close All</li>
+      <li @click="refreshSelectedTag(selectedTag)">{{lang.refresh}}</li>
+      <li v-if="!isAffix(selectedTag)" @click="closeSelectedTag(selectedTag)">{{lang.close}}</li>
+      <li @click="closeOthersTags">{{lang.closeOthers}}</li>
+      <li @click="closeAllTags(selectedTag)">{{lang.closeAll}}</li>
     </ul>
   </div>
 </template>
 
 <script>
+import lang from '../../../lang.json'
 import ScrollPane from './ScrollPane'
 import path from 'path'
 
@@ -37,6 +38,7 @@ export default {
     selectRouter: {}
   },
   data () {
+    this.lang = lang
     return {
       top: 0,
       left: 0,
@@ -174,7 +176,7 @@ export default {
     margin: 0;
     background: #fff;
     z-index: 3000;
-    position: absolute;
+    position: fixed;
     list-style-type: none;
     padding: 5px 0;
     border-radius: 4px;
