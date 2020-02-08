@@ -87,9 +87,6 @@ export default {
   },
   computed: {
     ...mapState({
-      layout: state => state.layout,
-      theme: state => state.theme,
-      language: state => state.lang,
     }),
   }
 }

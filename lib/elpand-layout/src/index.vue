@@ -1,7 +1,7 @@
 <template>
-  <div :class="{'elpand-layout':true,affixHeader:layout.setting.affixHeader,collapse:collapse}">
+  <div :class="{'elpand-layout':true,affixHeader:setting.affixHeader,collapse:collapse}">
       <elpand-layoutSidebar
-      v-bind="layout.sidebar"
+      v-bind="config.sidebar"
       :collapse="collapse"
       :navs="navs"
       :activeMenu="activeMenu"
@@ -10,11 +10,11 @@
     <div class="layoutRight">
         <div class="header-container">
           <elpand-layoutHeader @toggle="handlerToggle" :collapse="collapse" :selectRouter="selectRouter"></elpand-layoutHeader>
-          <TagsView v-show="layout.setting.tagsView" @changeTag="changeTag" :selectRouter="selectRouter"/>
+          <TagsView v-show="setting.tagsView" @changeTag="changeTag" :selectRouter="selectRouter"/>
         </div>
-        <app-main :class="{tagsView:layout.setting.tagsView}" :show="show" :tags="tags"/>
+        <app-main :class="{tagsView:setting.tagsView}" :show="show" :tags="tags"/>
     </div>
-    <elpand-layoutSetting v-if="layout.setting.show"/>
+    <elpand-layoutSetting v-if="setting.show"/>
   </div>
 </template>
 
@@ -28,6 +28,10 @@ export default {
   components: {
     appMain,
     TagsView
+  },
+  props: {
+    config: {},
+    navs: {},
   },
   data () {
     return {
@@ -50,13 +54,11 @@ export default {
   },
   computed: {
     ...mapState({
-      layout: state => state.layout,
-      resize: state => state.resize,
-      navs (state) {
-        return state.navs.navs
-        // return treeFilter(state.navs.navs, state.permission.permission)
-      }
+      resize: state => state.resize
     }),
+    setting(){
+      return this.config.setting
+    },
     activeMenu () {
       return this.$route.path
     },
