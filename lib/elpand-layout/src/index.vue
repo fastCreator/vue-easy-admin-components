@@ -1,5 +1,5 @@
 <template>
-  <div :class="{'elpand-layout':true,affixHeader:setting.affixHeader,collapse:collapse}">
+  <div :class="{'elpand-layout':true,affixHeader:header.affixHeader,collapse:collapse}">
       <elpand-layoutSidebar
       v-bind="config.sidebar"
       :collapse="collapse"
@@ -10,16 +10,15 @@
     <div class="layoutRight">
         <div class="header-container">
           <elpand-layoutHeader @toggle="handlerToggle" :collapse="collapse" :selectRouter="selectRouter"></elpand-layoutHeader>
-          <TagsView v-show="setting.tagsView" @changeTag="changeTag" :selectRouter="selectRouter"/>
+          <TagsView v-show="header.tagsView" @changeTag="changeTag" :selectRouter="selectRouter"/>
         </div>
-        <app-main :class="{tagsView:setting.tagsView}" :show="show" :tags="tags"/>
+        <app-main :class="{tagsView:header.tagsView}" :show="show" :tags="tags"/>
     </div>
-    <elpand-layoutSetting v-if="setting.show"/>
+    <elpand-layoutSetting v-if="config.setting.show"/>
   </div>
 </template>
 
 <script>
-import { treeFilter } from '../../utils/commom'
 import { mapState } from 'vuex'
 import appMain from './appMain'
 import TagsView from './TagsView/index'
@@ -56,8 +55,8 @@ export default {
     ...mapState({
       resize: state => state.resize
     }),
-    setting(){
-      return this.config.setting
+    header(){
+      return this.config.header
     },
     activeMenu () {
       return this.$route.path

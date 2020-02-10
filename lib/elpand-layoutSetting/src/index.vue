@@ -1,94 +1,150 @@
 <template>
-    <div class="elpand-layoutSetting">
-      <div v-if="mask" class="mask" @click="toggleMask"></div>
-      <div :class="{rightPanel:true,hasMask:mask}">
-        <div class="icon" @click="toggleMask">
-          <i :class="mask?'el-icon-close':'el-icon-setting'"></i>
-        </div>
-        <div class="drawer-container">
-          <div>
-            <h3 class="drawer-title">{{lang.title}}</h3>
+  <div class="elpand-layoutSetting">
+    <div v-if="mask" class="mask" @click="toggleMask"></div>
+    <div :class="{ rightPanel: true, hasMask: mask }">
+      <div class="icon" @click="toggleMask">
+        <i :class="mask ? 'el-icon-close' : 'el-icon-setting'"></i>
+      </div>
+      <div class="drawer-container">
+        <div>
+          <h3 class="drawer-title">{{ title }}</h3>
 
-            <div class="drawer-item" v-if="theme">
-              <span>{{lang.theme}}</span>
-              <el-select :value="theme.theme" @change="changeThem">
-                <el-option
-                  v-for="item in theme.list"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value">
-                </el-option>
-              </el-select>
-            </div>
-
-            <div class="drawer-item" v-if="lang">
-              <span>{{lang.lang}}</span>
-              <el-select :value="language.locale" @change="changeLang">
-                <el-option
-                  v-for="item in language.list"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value">
-                </el-option>
-              </el-select>
-            </div>
-
-            <div class="drawer-item">
-              <span>{{lang.tagsView}}</span>
-              <el-switch :value="layout.setting.tagsView" @change="changeSetting('tagsView',$event)"/>
-            </div>
-
-            <div class="drawer-item">
-              <span>{{lang.affixHeader}}</span>
-              <el-switch :value="layout.setting.affixHeader" @change="changeSetting('affixHeader',$event)"/>
-            </div>
-
-            <div class="drawer-item">
-              <span>{{lang.logo}}</span>
-              <el-switch :value="layout.sidebar.logo.showLogo" @change="changeLogo"/>
-            </div>   
-
+          <div class="drawer-item" v-for="(it, i) in settingList" :key="i">
+            <span>{{ it.label }}</span>
+            <el-select
+              v-if="it.type === 'select'"
+              v-model="it.value"
+              @change="it.change"
+            >
+              <el-option
+                v-for="item in it.options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              >
+              </el-option>
+            </el-select>
+            <el-switch
+              v-else-if="it.type === 'switch'"
+              :value="it.value"
+              @change="it.change"
+            />
           </div>
         </div>
       </div>
     </div>
+  </div>
 </template>
 <script>
-import lang from './lang.json'
-import { mapState } from 'vuex'
 export default {
   name: 'elpand-layoutSetting',
   data () {
+    let that = this
+    this.title = {
+      "zh-CN": "设置",
+      "en": "setting"
+    }
     return {
-      mask: false
+      mask: false,
+      settingList: [that.getTheme(), that.setlang(), that.getTagsView(), that.getAffixHeader(), that.getLogo()]
     }
   },
   created () {
-    this.lang = lang
   },
   methods: {
     toggleMask () {
       this.mask = !this.mask
     },
     changeSetting (name, v) {
-      this.$store.commit('setLayoutsetting', { ...this.layout.setting, [name]: v })
+      this.$store.commit('setLayoutsetting', {
+        ...this.layout.setting,
+        [name]: v
+      })
     },
-    changeLogo (v) {
-      let o = JSON.parse(JSON.stringify(this.layout.sidebar))
-      o.logo.showLogo = v
-      this.$store.commit('setLayoutsidebar', o)
+    getTheme () {
+      let theme = this.$service.theme
+      let o = {
+        type: 'select',
+        label: {
+          'zh-CN': '主题',
+          en: 'theme'
+        },
+        value: theme.selectTheme,
+        change (v) {
+          theme.setTheme(v)
+          o.value = v
+        },
+        options: theme.config.list
+      }
+      return o
     },
-    changeLang (v) {
-      this.$store.commit('setLang', v)
+    setlang () {
+      let lang = this.$service.language
+      let o = {
+        type: 'select',
+        label: {
+          'zh-CN': '语言',
+          en: 'language'
+        },
+        value: lang.i18n.locale,
+        change (v) {
+          lang.setLang(v)
+          o.value = v
+        },
+        options: lang.config.list
+      }
+      return o
     },
-    changeThem (v) {
-      this.$store.commit('setTheme', v)
+    getTagsView () {
+      let config = this.$service.layout.config
+      let o = {
+        type: 'switch',
+        label: {
+         "zh-CN": "显示标签",
+         "en": "tagsView"
+        },
+        value: config.header.tagsView,
+        change (v) {
+          o.value = v
+          config.header.tagsView = v
+        }
+      }
+      return o
+    },
+    getAffixHeader () {
+      let config = this.$service.layout.config
+      let o = {
+        type: 'switch',
+        label: {
+          "zh-CN": "固定头部",
+          "en": "fixedHeader"
+        },
+        value: config.header.affixHeader,
+        change (v) {
+          o.value = v
+          config.header.affixHeader = v
+        }
+      }
+      return o
+    },
+    getLogo () {
+      let config = this.$service.layout.config
+      let o = {
+        type: 'switch',
+        label: {
+          "zh-CN": "头部",
+          "en": "logo"
+        },
+        value: config.sidebar.logo.showLogo,
+        change (v) {
+          o.value = v
+          config.sidebar.logo.showLogo = v
+        }
+      }
+      return o
     }
   },
-  computed: {
-    ...mapState({
-    }),
-  }
+  computed: {}
 }
 </script>
 <style lang="less">
