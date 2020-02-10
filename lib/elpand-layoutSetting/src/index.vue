@@ -41,16 +41,22 @@ export default {
   data () {
     let that = this
     this.title = {
-      "zh-CN": "设置",
-      "en": "setting"
+      'zh-CN': '设置',
+      en: 'setting'
     }
     return {
       mask: false,
-      settingList: [that.getTheme(), that.setlang(), that.getTagsView(), that.getAffixHeader(), that.getLogo()]
+      settingList: [
+        that.getTheme(),
+        that.setlang(),
+        that.getTagsView(),
+        that.getAffixHeader(),
+        that.getLogo(),
+        ...that.getUserSetting()
+      ]
     }
   },
-  created () {
-  },
+  created () {},
   methods: {
     toggleMask () {
       this.mask = !this.mask
@@ -100,8 +106,8 @@ export default {
       let o = {
         type: 'switch',
         label: {
-         "zh-CN": "显示标签",
-         "en": "tagsView"
+          'zh-CN': '显示标签',
+          en: 'tagsView'
         },
         value: config.header.tagsView,
         change (v) {
@@ -116,8 +122,8 @@ export default {
       let o = {
         type: 'switch',
         label: {
-          "zh-CN": "固定头部",
-          "en": "fixedHeader"
+          'zh-CN': '固定头部',
+          en: 'fixedHeader'
         },
         value: config.header.affixHeader,
         change (v) {
@@ -132,8 +138,8 @@ export default {
       let o = {
         type: 'switch',
         label: {
-          "zh-CN": "头部",
-          "en": "logo"
+          'zh-CN': '头部',
+          en: 'logo'
         },
         value: config.sidebar.logo.showLogo,
         change (v) {
@@ -142,6 +148,9 @@ export default {
         }
       }
       return o
+    },
+    getUserSetting () {
+      return this.$service.layout.config.setting.list || []
     }
   },
   computed: {}
