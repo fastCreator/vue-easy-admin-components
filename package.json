@@ -1,6 +1,6 @@
 {
   "name": "vue-element-ui-expand",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -30,6 +30,7 @@
     "less": "^3.9.0",
     "less-loader": "^5.0.0",
     "node-loader": "^0.6.0",
+    "sass-loader": "^8.0.2",
     "script-loader": "^0.7.2",
     "sortablejs": "^1.10.0-rc3",
     "vue": "^2.6.10",

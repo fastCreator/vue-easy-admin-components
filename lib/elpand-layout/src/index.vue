@@ -1,6 +1,12 @@
 <template>
-  <div :class="{'elpand-layout':true,affixHeader:header.affixHeader,collapse:collapse}">
-      <elpand-layoutSidebar
+  <div
+    :class="{
+      'elpand-layout': true,
+      affixHeader: header.affixHeader,
+      collapse: collapse
+    }"
+  >
+    <elpand-layoutSidebar
       v-bind="config.sidebar"
       :collapse="collapse"
       :navs="navs"
@@ -8,13 +14,25 @@
       @menuSelect="menuSelect"
     />
     <div class="layoutRight">
-        <div class="header-container">
-          <elpand-layoutHeader @toggle="handlerToggle" :collapse="collapse" :selectRouter="selectRouter"></elpand-layoutHeader>
-          <TagsView v-show="header.tagsView" @changeTag="changeTag" :selectRouter="selectRouter"/>
-        </div>
-        <app-main :class="{tagsView:header.tagsView}" :show="show" :tags="tags"/>
+      <div class="header-container">
+        <elpand-layoutHeader
+          @toggle="handlerToggle"
+          :collapse="collapse"
+          :selectRouter="selectRouter"
+        ></elpand-layoutHeader>
+        <TagsView
+          v-show="header.tagsView"
+          @changeTag="changeTag"
+          :selectRouter="selectRouter"
+        />
+      </div>
+      <app-main
+        :class="{ tagsView: header.tagsView }"
+        :show="show"
+        :tags="tags"
+      />
     </div>
-    <elpand-layoutSetting v-if="config.setting.show"/>
+    <elpand-layoutSetting v-if="config.setting.show" />
   </div>
 </template>
 
@@ -52,9 +70,9 @@ export default {
     },
   },
   computed: {
-    ...mapState({
-      resize: state => state.resize
-    }),
+    resize(){
+      return this.$service.resize.state
+    },
     header(){
       return this.config.header
     },
