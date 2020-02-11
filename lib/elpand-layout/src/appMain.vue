@@ -37,7 +37,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .app-main {
   width: 100%;
   position: relative;
@@ -60,7 +60,7 @@ export default {
 }
 </style>
 
-<style lang="scss">
+<style lang="less">
 // fix css style bug in open el-dialog
 .el-popup-parent--hidden {
   .fixed-header {

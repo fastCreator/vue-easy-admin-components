@@ -37,7 +37,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import appMain from './appMain'
 import TagsView from './TagsView/index'
 export default {
