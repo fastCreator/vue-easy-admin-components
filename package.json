@@ -1,5 +1,5 @@
 {
-  "name": "vue-element-ui-expand",
+  "name": "vue-easy-admin-components",
   "version": "0.9.2",
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -62,7 +62,7 @@
     "> 1%",
     "last 2 versions"
   ],
-  "description": "element-ui扩展组件库",
+  "description": "vue-easy-admin组件库",
   "main": "lib/index.js",
   "directories": {
     "example": "example",
@@ -70,18 +70,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fastCreator/vue-element-ui-expand.git"
+    "url": "git+https://github.com/fastCreator/vue-easy-admin-components.git"
   },
   "keywords": [
     "vue",
     "element-ui",
-    "expand",
-    "components"
+    "easy-admin",
+    "vue components"
   ],
-  "author": "coco",
+  "author": "zhangguo",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/fastCreator/vue-element-ui-expand/issues"
+    "url": "https://github.com/fastCreator/vue-easy-admin-components/issues"
   },
-  "homepage": "https://fastcreator.github.io/vue-element-ui-expand/"
+  "homepage": "https://fastcreator.github.io/vue-easy-admin-components/"
 }

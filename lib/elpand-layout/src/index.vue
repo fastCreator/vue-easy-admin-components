@@ -49,6 +49,9 @@ export default {
     config: {},
     navs: {},
   },
+  beforeCreat(){
+    console.log(this.navs)
+  },
   data () {
     return {
       collapse: false,
@@ -74,6 +77,9 @@ export default {
     },
     header(){
       return this.config.header
+    },
+    permission(){
+      return this.$store.state.permission
     },
     activeMenu () {
       return this.$route.path
