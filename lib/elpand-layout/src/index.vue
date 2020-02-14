@@ -47,13 +47,15 @@ export default {
   },
   props: {
     config: {},
-    navs: {},
+    getNavs: {},
   },
   beforeCreat(){
     console.log(this.navs)
   },
   data () {
+    let that = this
     return {
+      navs:that.getNavs(),
       collapse: false,
       tags: [],
       show: true,
@@ -77,9 +79,6 @@ export default {
     },
     header(){
       return this.config.header
-    },
-    permission(){
-      return this.$store.state.permission
     },
     activeMenu () {
       return this.$route.path
