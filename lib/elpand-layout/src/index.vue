@@ -46,16 +46,10 @@ export default {
     TagsView
   },
   props: {
-    config: {},
-    getNavs: {},
-  },
-  beforeCreat(){
-    console.log(this.navs)
+    config: {}
   },
   data () {
-    let that = this
     return {
-      navs:that.getNavs(),
       collapse: false,
       tags: [],
       show: true,
@@ -71,23 +65,25 @@ export default {
         }
       },
       immediate: true
-    },
+    }
   },
   computed: {
-    resize(){
+    resize () {
       return this.$service.resize.state
     },
-    header(){
+    header () {
       return this.config.header
     },
     activeMenu () {
       return this.$route.path
     },
+    navs () {
+      return this.$store.state.navs.navs
+    }
   },
-  created () {
-  },
+  created () {},
   methods: {
-    handleClickOutside () { },
+    handleClickOutside () {},
     handlerToggle () {
       this.collapse = !this.collapse
     },
