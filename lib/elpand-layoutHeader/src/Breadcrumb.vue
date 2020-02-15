@@ -1,6 +1,6 @@
 <template>
   <el-breadcrumb separator="/" class="breadcrumb-container">
-    <el-breadcrumb-item v-for="it in nav.parents" :key="it.title||it" :to="it.path">{{it.title||it}}</el-breadcrumb-item>
+    <el-breadcrumb-item v-for="it in nav.parents" :key="getKey(it)" :to="it.path">{{it}}</el-breadcrumb-item>
     <el-breadcrumb-item>{{nav.title}}</el-breadcrumb-item>
   </el-breadcrumb>
 </template>
@@ -19,13 +19,17 @@ export default {
     return {
     }
   },
-  created () {
-  },
   computed: {
   },
   methods: {
     handlerToggle () {
       this.$emit('toggle')
+    },
+    getKey (o) {
+      if (typeof (o) === 'object') {
+        return JSON.stringify(o)
+      }
+      return o
     }
   }
 }

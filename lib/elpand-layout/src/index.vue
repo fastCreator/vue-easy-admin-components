@@ -78,7 +78,7 @@ export default {
       return this.$route.path
     },
     navs () {
-      return this.$store.state.navs.navs
+      return this.$store.getters._navs
     }
   },
   created () {},
