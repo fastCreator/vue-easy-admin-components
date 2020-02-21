@@ -2,15 +2,16 @@
   <div class="elpand-table" v-loading="loading">
     <div class="filters">
       <div class="filters-item" v-for="it in filters" :key="it.prop">
-        <div class="filters-label">{{it.label}}：</div>
+        <div class="filters-label">{{ it.label }}：</div>
         <div class="filters-value">
-          <component 
-            v-bind:is="it.tag" 
-            v-bind="it.bind" 
-            v-on="it.on" 
-            clearable 
-            :value="filtersValue[it.prop]" 
-            @input="setFiltersValue($event,it.prop)">
+          <component
+            v-bind:is="it.tag"
+            v-bind="it.bind"
+            v-on="it.on"
+            clearable
+            :value="filtersValue[it.prop]"
+            @input="setFiltersValue($event, it.prop)"
+          >
           </component>
         </div>
       </div>
@@ -33,13 +34,26 @@
     </div>
     <div class="operations">
       <el-dropdown trigger="click" v-if="tableExport">
-        <el-button class="exportExcel" type="primary" icon="el-icon-download">导出</el-button>
+        <el-button class="exportExcel" type="primary" icon="el-icon-download"
+          >导出</el-button
+        >
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item v-for="it in tableExport.bookTypes" :key="it" @click.native="exportExcel(it)">{{it}}</el-dropdown-item>
+          <el-dropdown-item
+            v-for="it in tableExport.bookTypes"
+            :key="it"
+            @click.native="exportExcel(it)"
+            >{{ it }}</el-dropdown-item
+          >
         </el-dropdown-menu>
       </el-dropdown>
-      <el-button v-for="(it,i) in operations" :key="i" v-bind="it.bind" v-on="it.on" @click="operationHandler(it)">
-        {{it.label}}
+      <el-button
+        v-for="(it, i) in operations"
+        :key="i"
+        v-bind="it.bind"
+        v-on="it.on"
+        @click="operationHandler(it)"
+      >
+        {{ it.label }}
       </el-button>
     </div>
     <my-table
@@ -50,11 +64,10 @@
       :createElement="createElement"
       :data="tableData"
       :hideTableLabel="hideTableLabel"
-      :tableSort="tableSort">
+      :tableSort="tableSort"
+    >
     </my-table>
-    <div
-      class="pagination"
-      v-if="pagination">
+    <div class="pagination" v-if="pagination">
       <el-pagination
         v-bind="pagination.bind"
         v-on="pagination.on"
@@ -64,13 +77,15 @@
         @size-change="handerSizeChange"
         @current-change="changePage"
         @prev-click="changePage"
-        @next-click="changePage">
+        @next-click="changePage"
+      >
       </el-pagination>
     </div>
   </div>
 </template>
 <script>
 import MyTable from './table'
+const excel = () => import('./Export2Excel')
 export default {
   name: 'elpand-table',
   components: {
@@ -88,15 +103,19 @@ export default {
     },
     tableFilter: {
       type: Boolean,
-      default: false,
+      default: false
     },
     filters: {
       type: Array,
-      default() { return [] }
+      default () {
+        return []
+      }
     },
     operations: {
       type: Array,
-      default() { return [] }
+      default () {
+        return []
+      }
     },
     table: {
       type: Object,
@@ -110,49 +129,51 @@ export default {
       require: true
     }
   },
-  data() {
+  data () {
     return {
       filtersValue: this.initFiltersValue(),
       tableData: [],
       total: 0,
       currentPage: this.pagination ? this.pagination.currentPage : 1,
       pageSize: this.pagination ? this.pagination.pageSize : 10,
-      selection: [],//table选中row
-      tableFilterSelected: [],//table显示列
+      selection: [], //table选中row
+      tableFilterSelected: [], //table显示列
       loading: false
     }
   },
-  created() {
+  created () {
     this.handlerSearch()
   },
   computed: {
-    tableFilterList() {
+    tableFilterList () {
       return this.table.columns.filter(it => it.label).map(it => it.label)
     },
-    hideTableLabel() {
-      return this.tableFilterList.filter(it => !~this.tableFilterSelected.indexOf(it))
+    hideTableLabel () {
+      return this.tableFilterList.filter(
+        it => !~this.tableFilterSelected.indexOf(it)
+      )
     },
-    hasCheckbox() {
+    hasCheckbox () {
       return this.table.columns.find(it => it.type && it.type === 'selection')
     }
   },
   watch: {
     tableFilterList: {
-      handler(v) {
+      handler (v) {
         this.tableFilterSelected = v
       },
       immediate: true
     }
   },
   methods: {
-    getData() {
+    getData () {
       return this.tableData
     },
-    handlerSort(...args) {
+    handlerSort (...args) {
       this.tableSort(...args)
     },
-    exportExcel(bookType) {
-      import('./Export2Excel').then(excel => {
+    exportExcel (bookType) {
+      excel().then(excel => {
         excel.export_json_to_excel({
           ...this.getExportExcelData(),
           filename: this.tableExport.filename,
@@ -161,7 +182,7 @@ export default {
         })
       })
     },
-    getExportExcelData() {
+    getExportExcelData () {
       let columns = this.table.columns
       let header = []
       let props = []
@@ -171,17 +192,19 @@ export default {
         this.getChildProp(ct, header, props)
       })
       return {
-        data: (this.hasCheckbox ? this.selection : this.tableData).map(row => props.map(prop => {
-          if (tableExportFuc) {
-            return tableExportFuc(row, prop)
-          } else {
-            return row[prop]
-          }
-        })),
+        data: (this.hasCheckbox ? this.selection : this.tableData).map(row =>
+          props.map(prop => {
+            if (tableExportFuc) {
+              return tableExportFuc(row, prop)
+            } else {
+              return row[prop]
+            }
+          })
+        ),
         header
       }
     },
-    getChildProp(ct, header, props) {
+    getChildProp (ct, header, props) {
       if (ct.child) {
         ct.child.forEach(cct => {
           this.getChildProp(cct, header, props)
@@ -191,14 +214,14 @@ export default {
         props.push(ct.prop)
       }
     },
-    handerSizeChange(v) {
+    handerSizeChange (v) {
       this.pageSize = v
       this.changePage()
     },
-    handlerSelection(selection) {
+    handlerSelection (selection) {
       this.selection = selection
     },
-    operationHandler(opt) {
+    operationHandler (opt) {
       if (opt.confirm) {
         this.$confirm(opt.confirm, '', {
           confirmButtonText: '确定',
@@ -210,34 +233,33 @@ export default {
       } else {
         this.operationCall(opt)
       }
-
     },
-    operationCall(opt) {
+    operationCall (opt) {
       if (opt.call) {
         opt.call(this.selection, this.handlerSearch)
       }
     },
-    setFiltersValue(v, prop) {
+    setFiltersValue (v, prop) {
       this.$set(this.filtersValue, prop, v)
     },
-    initFiltersValue() {
+    initFiltersValue () {
       let values = {}
       this.filters.forEach(it => {
         values[it.prop] = it.default || null
       })
       return values
     },
-    clearFilters() {
+    clearFilters () {
       this.filtersValue = this.initFiltersValue()
       this.currentPage = this.pagination ? this.pagination.currentPage : 1
       this.pageSize = this.pagination ? this.pagination.pageSize : 10
       this.handlerSearch()
     },
-    clearSearch() {
+    clearSearch () {
       this.clearFilters()
       this.handlerSearch()
     },
-    async handlerSearch() {
+    async handlerSearch () {
       this.loading = true
       let d = await this.search(this.filtersValue, {
         currentPage: this.currentPage,
@@ -252,7 +274,7 @@ export default {
         })
       }
     },
-    changePage() {
+    changePage () {
       this.handlerSearch()
     }
   }
@@ -284,6 +306,7 @@ export default {
   }
   .pagination {
     margin-top: 12px;
+    text-align: center;
   }
 }
 </style>

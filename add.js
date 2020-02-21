@@ -169,7 +169,7 @@ function addindexJS () {
     const componentsText = 'const components = ['
     data = data.replace(componentsText, componentsText + `${name}, `)
     const ExportText = 'export default {'
-    data = data.replace(ExportText, ExportText + `\n\t${name}, `)
+    data = data.replace(ExportText,  + `export const elpand${name.charAt(0).toUpperCase() + name.slice(1)} = ${name}` + ExportText)
     write(url, data)
   })
 }
