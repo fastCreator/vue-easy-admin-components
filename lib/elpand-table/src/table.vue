@@ -159,6 +159,13 @@ export default {
       if (it.type === 'image') {
         return props => <img class='table-img' src={props.row[it.prop]} />
       }
+      if (it.type === 'map') {
+        return props => {
+          let v = props.row[it.prop]
+          let item = it.list.find(it => it.value === v)
+          return item ? item.label : v
+        }
+      }
       if (it.type === 'color') {
         return props => (
           <div

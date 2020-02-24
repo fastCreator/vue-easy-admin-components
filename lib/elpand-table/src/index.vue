@@ -1,9 +1,8 @@
 <template>
-  <div class="elpand-table" v-loading="loading">
+  <div class="elpand-table">
     <div class="filters">
-      <div class="filters-item" v-for="it in filters" :key="it.prop">
-        <div class="filters-label">{{ it.label }}：</div>
-        <div class="filters-value">
+      <el-form :inline="true" class="filters-form">
+        <el-form-item v-for="it in filters" :key="it.prop" :label="it.label">
           <component
             v-bind:is="it.tag"
             v-bind="it.bind"
@@ -13,11 +12,11 @@
             @input="setFiltersValue($event, it.prop)"
           >
           </component>
-        </div>
-      </div>
+        </el-form-item>
+      </el-form>
       <div class="btns">
-        <el-button type="primary" @click="handlerSearch">搜索</el-button>
-        <el-button type="warning" @click="clearFilters">重置</el-button>
+        <el-button type="primary" @click="handlerSearch">{{$globLang.search}}</el-button>
+        <el-button type="warning" @click="clearFilters">{{$globLang.reset}}</el-button>
         <el-dropdown v-if="tableFilter" trigger="click" :hide-on-click="false">
           <el-button type="plain" icon="el-icon-menu"></el-button>
           <el-dropdown-menu slot="dropdown">
@@ -35,7 +34,7 @@
     <div class="operations">
       <el-dropdown trigger="click" v-if="tableExport">
         <el-button class="exportExcel" type="primary" icon="el-icon-download"
-          >导出</el-button
+          >{{$globLang.export}}</el-button
         >
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item
@@ -137,8 +136,7 @@ export default {
       currentPage: this.pagination ? this.pagination.currentPage : 1,
       pageSize: this.pagination ? this.pagination.pageSize : 10,
       selection: [], //table选中row
-      tableFilterSelected: [], //table显示列
-      loading: false
+      tableFilterSelected: [] //table显示列
     }
   },
   created () {
@@ -260,12 +258,10 @@ export default {
       this.handlerSearch()
     },
     async handlerSearch () {
-      this.loading = true
       let d = await this.search(this.filtersValue, {
         currentPage: this.currentPage,
         pageSize: this.pageSize
       })
-      this.loading = false
       this.tableData = d[this.table.data]
       if (this.pagination) {
         this.total = d
@@ -289,8 +285,12 @@ export default {
       align-items: center;
       margin-left: 20px;
     }
+    .filters-form {
+      .el-form-item {
+        margin-bottom: 0;
+      }
+    }
     .btns {
-      margin-left: 12px;
       .el-dropdown {
         margin-left: 12px;
       }
