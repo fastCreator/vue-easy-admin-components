@@ -137,6 +137,7 @@ export default {
                 align: this.getColumnsAlign(it),
                 label: it.label,
                 type: it.type,
+                className: `${it.prop || ''} ${it.type || ''}`,
                 prop: it.prop,
                 ...it.bind
               },
@@ -258,6 +259,18 @@ export default {
     }
     .table-audio {
       width: 270px;
+    }
+    .el-table__row {
+      .btns {
+        padding-top: 0;
+        .cell {
+          padding: 0;
+          .el-button {
+            margin-left: 10px;
+            margin-top: 8px;
+          }
+        }
+      }
     }
   }
 }
