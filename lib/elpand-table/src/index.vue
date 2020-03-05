@@ -15,8 +15,12 @@
         </el-form-item>
       </el-form>
       <div class="btns">
-        <el-button type="primary" @click="handlerSearch">{{$globLang.search}}</el-button>
-        <el-button type="warning" @click="clearFilters">{{$globLang.reset}}</el-button>
+        <el-button type="primary" @click="handlerSearch">{{
+          text.search
+        }}</el-button>
+        <el-button type="warning" @click="clearFilters">{{
+          text.reset
+        }}</el-button>
         <el-dropdown v-if="tableFilter" trigger="click" :hide-on-click="false">
           <el-button type="plain" icon="el-icon-menu"></el-button>
           <el-dropdown-menu slot="dropdown">
@@ -33,9 +37,9 @@
     </div>
     <div class="operations">
       <el-dropdown trigger="click" v-if="tableExport">
-        <el-button class="exportExcel" type="primary" icon="el-icon-download"
-          >{{$globLang.export}}</el-button
-        >
+        <el-button class="exportExcel" type="primary" icon="el-icon-download">{{
+          text.export
+        }}</el-button>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item
             v-for="it in tableExport.bookTypes"
@@ -91,6 +95,9 @@ export default {
     MyTable
   },
   props: {
+    text: {
+      default: () => ({ search: '搜索', reset: '重置', export: '导出' })
+    },
     createElement: {
       type: Function
     },
